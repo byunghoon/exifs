@@ -10,4 +10,11 @@ import UIKit
 
 class NavigationController: UINavigationController {
 
+    override func childViewControllerForStatusBarStyle() -> UIViewController? {
+        return topViewController
+    }
+    
+    override func childViewControllerForStatusBarHidden() -> UIViewController? {
+        return topViewController
+    }
 }
