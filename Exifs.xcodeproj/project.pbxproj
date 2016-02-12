@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		449241131C6D6CF9005CCCE8 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449241121C6D6CF9005CCCE8 /* Theme.swift */; };
+		449241151C6D83E8005CCCE8 /* NSDateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449241141C6D83E8005CCCE8 /* NSDateExtensions.swift */; };
 		4492411A1C6D97E3005CCCE8 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449241191C6D97E3005CCCE8 /* NavigationController.swift */; };
 		4492411C1C6DA06E005CCCE8 /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4492411B1C6DA06E005CCCE8 /* UIColorExtensions.swift */; };
 		44D041EC1C67E47800DC1898 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D041EB1C67E47800DC1898 /* AppDelegate.swift */; };
@@ -20,6 +21,7 @@
 
 /* Begin PBXFileReference section */
 		449241121C6D6CF9005CCCE8 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		449241141C6D83E8005CCCE8 /* NSDateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtensions.swift; sourceTree = "<group>"; };
 		449241191C6D97E3005CCCE8 /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		4492411B1C6DA06E005CCCE8 /* UIColorExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
 		44D041E81C67E47800DC1898 /* Exifs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Exifs.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -46,6 +48,7 @@
 		449241161C6D93FE005CCCE8 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				449241141C6D83E8005CCCE8 /* NSDateExtensions.swift */,
 				4492411B1C6DA06E005CCCE8 /* UIColorExtensions.swift */,
 			);
 			name = Extensions;
@@ -157,6 +160,7 @@
 			files = (
 				4492411C1C6DA06E005CCCE8 /* UIColorExtensions.swift in Sources */,
 				4492411A1C6D97E3005CCCE8 /* NavigationController.swift in Sources */,
+				449241151C6D83E8005CCCE8 /* NSDateExtensions.swift in Sources */,
 				44D041FE1C67E5C400DC1898 /* AlbumViewController.swift in Sources */,
 				44D041EC1C67E47800DC1898 /* AppDelegate.swift in Sources */,
 				449241131C6D6CF9005CCCE8 /* Theme.swift in Sources */,
