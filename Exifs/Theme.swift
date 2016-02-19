@@ -13,13 +13,13 @@ struct Unit {
 }
 
 struct Color {
-    static let blackColor = UIColor.blackColor()
-    static let gray10Color = UIColor(hex: 0x1D1E23)
-    static let gray60Color = UIColor(hex: 0x959EA2)
-    static let gray85Color = UIColor(white: 0.85, alpha: 1)
-    static let whiteColor = UIColor.whiteColor()
+    static let black = UIColor.blackColor()
+    static let gray10 = UIColor(hex: 0x1D1E23)
+    static let gray60 = UIColor(hex: 0x959EA2)
+    static let gray85 = UIColor(white: 0.85, alpha: 1)
+    static let white = UIColor.whiteColor()
     
-    static let blueColor = UIColor(hex: 0x0B6DB7)
-    static let greenColor = UIColor(hex: 0xC0D84D)
-    static let tealColor = UIColor(hex: 0x00A6A9)
+    static let blue = UIColor(hex: 0x0B6DB7)
+    static let green = UIColor(hex: 0xC0D84D)
+    static let teal = UIColor(hex: 0x00A6A9)
 }

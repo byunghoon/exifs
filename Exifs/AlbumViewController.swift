@@ -20,11 +20,11 @@ class AlbumCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        thumbnailView.layer.borderColor = Color.gray85Color.CGColor
+        thumbnailView.layer.borderColor = Color.gray85.CGColor
         thumbnailView.layer.borderWidth = Unit.pixel
         thumbnailView.layer.cornerRadius = 2
         
-        detailLabel.textColor = Color.gray60Color
+        detailLabel.textColor = Color.gray60
     }
     
     func update(album: Album) {
