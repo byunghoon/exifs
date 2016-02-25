@@ -18,4 +18,8 @@ extension UIColor {
         
         self.init(red: r, green: g, blue: b, alpha: a)
     }
+    
+    func highlightedColor() -> UIColor {
+        return colorWithAlphaComponent(0.2)
+    }
 }
