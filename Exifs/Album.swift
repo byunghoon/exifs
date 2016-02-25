@@ -12,8 +12,7 @@ struct Album {
     let id: String
     let title: String
     let assetCount: Int
-    let earliestAsset: PHAsset?
-    let latestAsset: PHAsset?
+    let assets: [PHAsset]?
     
     init(collection: PHAssetCollection) {
         id = collection.localIdentifier
@@ -26,7 +25,6 @@ struct Album {
         
         assetCount = fetchResult.count
         
-        earliestAsset = fetchResult.lastObject as? PHAsset
-        latestAsset = fetchResult.firstObject as? PHAsset
+        assets = fetchResult.objectsAtIndexes(NSIndexSet(indexesInRange: NSMakeRange(0, fetchResult.count))) as? [PHAsset]
     }
 }
