@@ -10,7 +10,7 @@ import UIKit
 import Photos
 
 class AlbumViewController: UITableViewController {
-    
+
     private let reuseIdentifier = "AlbumCell"
     
     private var albums = [Album]()
@@ -78,6 +78,6 @@ class AlbumViewController: UITableViewController {
     // MARK: - Table view delegate
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: false)
+        navigationController?.pushViewController(ThumbnailViewController.controller(), animated: true)
     }
 }

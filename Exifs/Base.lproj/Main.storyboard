@@ -89,49 +89,22 @@
             <point key="canvasLocation" x="824" y="371"/>
         </scene>
         <!--Thumbnail View Controller-->
-        <scene sceneID="JbL-JH-qbm">
+        <scene sceneID="efZ-S4-8Vo">
             <objects>
-                <collectionViewController id="c81-We-dBu" customClass="ThumbnailViewController" customModule="Exifs" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="sP4-TL-xTa">
+                <viewController storyboardIdentifier="ThumbnailViewController" id="v1O-Nz-Ztv" customClass="ThumbnailViewController" customModule="Exifs" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ZbP-gn-8rh"/>
+                        <viewControllerLayoutGuide type="bottom" id="vPK-gx-YYz"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ap0-eX-yg4">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="xdz-DZ-jXf">
-                            <size key="itemSize" width="50" height="50"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        </collectionViewFlowLayout>
-                        <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="9up-mx-j8m">
-                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pzu-7s-egX">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                        </imageView>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="pzu-7s-egX" secondAttribute="trailing" id="4PL-Gc-hTi"/>
-                                    <constraint firstItem="pzu-7s-egX" firstAttribute="leading" secondItem="9up-mx-j8m" secondAttribute="leading" id="FTJ-SR-tlJ"/>
-                                    <constraint firstItem="pzu-7s-egX" firstAttribute="top" secondItem="9up-mx-j8m" secondAttribute="top" id="aMh-O9-P4m"/>
-                                    <constraint firstAttribute="bottom" secondItem="pzu-7s-egX" secondAttribute="bottom" id="kZQ-IS-LAs"/>
-                                </constraints>
-                            </collectionViewCell>
-                        </cells>
-                        <connections>
-                            <outlet property="dataSource" destination="c81-We-dBu" id="WTt-jJ-nNK"/>
-                            <outlet property="delegate" destination="c81-We-dBu" id="EPY-Hy-2rd"/>
-                        </connections>
-                    </collectionView>
-                </collectionViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Rmc-On-k8N" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Nd6-jB-q37" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1541" y="371"/>
+            <point key="canvasLocation" x="1521" y="371"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="53D-Av-bSP">

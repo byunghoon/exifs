@@ -8,6 +8,17 @@
 
 import UIKit
 
-class ThumbnailViewController: UICollectionViewController {
-
+class ThumbnailViewController: UIViewController {
+    
+    class func controller() -> ThumbnailViewController {
+        return UIStoryboard.mainStoryboard().instantiateViewControllerWithIdentifier("ThumbnailViewController") as! ThumbnailViewController
+    }
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return false
+    }
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return .LightContent
+    }
 }
