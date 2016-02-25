@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		441ED6111C6AD2F60019016C /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441ED6101C6AD2F60019016C /* Album.swift */; };
 		441ED6131C6AE7590019016C /* FetchResultOrganizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441ED6121C6AE7590019016C /* FetchResultOrganizer.swift */; };
+		445431C01C76A01900CBF5E3 /* AlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445431BF1C76A01900CBF5E3 /* AlbumCell.swift */; };
 		449241131C6D6CF9005CCCE8 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449241121C6D6CF9005CCCE8 /* Theme.swift */; };
 		449241151C6D83E8005CCCE8 /* NSDateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449241141C6D83E8005CCCE8 /* NSDateExtensions.swift */; };
 		4492411A1C6D97E3005CCCE8 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449241191C6D97E3005CCCE8 /* NavigationController.swift */; };
@@ -24,6 +25,7 @@
 /* Begin PBXFileReference section */
 		441ED6101C6AD2F60019016C /* Album.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
 		441ED6121C6AE7590019016C /* FetchResultOrganizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchResultOrganizer.swift; sourceTree = "<group>"; };
+		445431BF1C76A01900CBF5E3 /* AlbumCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumCell.swift; sourceTree = "<group>"; };
 		449241121C6D6CF9005CCCE8 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		449241141C6D83E8005CCCE8 /* NSDateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtensions.swift; sourceTree = "<group>"; };
 		449241191C6D97E3005CCCE8 /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
@@ -84,6 +86,7 @@
 				449241161C6D93FE005CCCE8 /* Extensions */,
 				441ED6101C6AD2F60019016C /* Album.swift */,
 				44D041FD1C67E5C400DC1898 /* AlbumViewController.swift */,
+				445431BF1C76A01900CBF5E3 /* AlbumCell.swift */,
 				44D041FF1C67E99000DC1898 /* ThumbnailViewController.swift */,
 				44D041EF1C67E47800DC1898 /* Main.storyboard */,
 				44D041F21C67E47800DC1898 /* Assets.xcassets */,
@@ -171,6 +174,7 @@
 				44D041FE1C67E5C400DC1898 /* AlbumViewController.swift in Sources */,
 				44D041EC1C67E47800DC1898 /* AppDelegate.swift in Sources */,
 				449241131C6D6CF9005CCCE8 /* Theme.swift in Sources */,
+				445431C01C76A01900CBF5E3 /* AlbumCell.swift in Sources */,
 				44D042001C67E99000DC1898 /* ThumbnailViewController.swift in Sources */,
 				441ED6111C6AD2F60019016C /* Album.swift in Sources */,
 			);

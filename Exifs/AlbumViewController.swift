@@ -9,64 +9,6 @@
 import UIKit
 import Photos
 
-class AlbumCell: UITableViewCell {
-    
-    @IBOutlet weak var thumbnailView: UIImageView!
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var detailLabel: UILabel!
-    
-    private var currentRequestID: PHImageRequestID?
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        thumbnailView.layer.borderColor = Color.gray85.CGColor
-        thumbnailView.layer.borderWidth = Unit.pixel
-        thumbnailView.layer.cornerRadius = 2
-        
-        detailLabel.textColor = Color.gray60
-    }
-    
-    func update(album: Album) {
-        if let asset = album.latestAsset {
-            currentRequestID = PHImageManager.defaultManager().requestImageForAsset(asset, targetSize: thumbnailView.frame.size, contentMode: .AspectFill, options: nil, resultHandler: { (image, info) in
-                let requestId = info?[PHImageResultRequestIDKey] as? NSNumber
-                let cancelled = info?[PHImageCancelledKey] as? NSNumber
-                if requestId?.intValue == self.currentRequestID && cancelled?.boolValue != true {
-                    self.thumbnailView.image = image
-                }
-            })
-        }
-        
-        titleLabel.text = album.title
-        
-        var dateString = ""
-        if let earliestDate = album.earliestAsset?.creationDate, latestDate = album.latestAsset?.creationDate {
-            if earliestDate.isEqualToDate(latestDate) {
-                dateString = "  ·  \(earliestDate.formattedString())"
-            } else {
-                dateString = "  ·  \(earliestDate.formattedString()) to \(latestDate.formattedString())"
-            }
-        }
-        
-        detailLabel.text = "\(album.assetCount)\(dateString)"
-    }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        
-        if let requestID = currentRequestID {
-            PHImageManager.defaultManager().cancelImageRequest(requestID)
-        }
-        
-        currentRequestID = nil
-        thumbnailView.image = nil
-    }
-}
-
-
-// MARK: -
-
 class AlbumViewController: UITableViewController {
     
     private let reuseIdentifier = "AlbumCell"
@@ -83,8 +25,6 @@ class AlbumViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        tableView.contentInset = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
         
         loadAlbums()
     }
@@ -125,7 +65,7 @@ class AlbumViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 90
+        return 127
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -138,6 +78,6 @@ class AlbumViewController: UITableViewController {
     // MARK: - Table view delegate
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRowAtIndexPath(indexPath, animated: false)
     }
 }
