@@ -10,6 +10,7 @@
 		441ED6111C6AD2F60019016C /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441ED6101C6AD2F60019016C /* Album.swift */; };
 		441ED6131C6AE7590019016C /* FetchResultOrganizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441ED6121C6AE7590019016C /* FetchResultOrganizer.swift */; };
 		442443851C7EB7A60034AAFD /* UIStoryboardExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442443841C7EB7A60034AAFD /* UIStoryboardExtensions.swift */; };
+		442443981C7EC2700034AAFD /* UIBarButtonItemExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442443971C7EC2700034AAFD /* UIBarButtonItemExtensions.swift */; };
 		445431C01C76A01900CBF5E3 /* AlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445431BF1C76A01900CBF5E3 /* AlbumCell.swift */; };
 		449241131C6D6CF9005CCCE8 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449241121C6D6CF9005CCCE8 /* Theme.swift */; };
 		449241151C6D83E8005CCCE8 /* NSDateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449241141C6D83E8005CCCE8 /* NSDateExtensions.swift */; };
@@ -30,6 +31,7 @@
 		441ED6121C6AE7590019016C /* FetchResultOrganizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchResultOrganizer.swift; sourceTree = "<group>"; };
 		442443841C7EB7A60034AAFD /* UIStoryboardExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIStoryboardExtensions.swift; sourceTree = "<group>"; };
 		442443931C7EC24B0034AAFD /* Exifs-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Exifs-Bridging-Header.h"; sourceTree = "<group>"; };
+		442443971C7EC2700034AAFD /* UIBarButtonItemExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIBarButtonItemExtensions.swift; sourceTree = "<group>"; };
 		445431BF1C76A01900CBF5E3 /* AlbumCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumCell.swift; sourceTree = "<group>"; };
 		449241121C6D6CF9005CCCE8 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		449241141C6D83E8005CCCE8 /* NSDateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtensions.swift; sourceTree = "<group>"; };
@@ -62,6 +64,7 @@
 		449241161C6D93FE005CCCE8 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				442443971C7EC2700034AAFD /* UIBarButtonItemExtensions.swift */,
 				449241141C6D83E8005CCCE8 /* NSDateExtensions.swift */,
 				4492411B1C6DA06E005CCCE8 /* UIColorExtensions.swift */,
 				442443841C7EB7A60034AAFD /* UIStoryboardExtensions.swift */,
@@ -251,6 +254,7 @@
 				441ED6131C6AE7590019016C /* FetchResultOrganizer.swift in Sources */,
 				4492411A1C6D97E3005CCCE8 /* NavigationController.swift in Sources */,
 				442443851C7EB7A60034AAFD /* UIStoryboardExtensions.swift in Sources */,
+				442443981C7EC2700034AAFD /* UIBarButtonItemExtensions.swift in Sources */,
 				449241151C6D83E8005CCCE8 /* NSDateExtensions.swift in Sources */,
 				44D041FE1C67E5C400DC1898 /* AlbumViewController.swift in Sources */,
 				44D041EC1C67E47800DC1898 /* AppDelegate.swift in Sources */,
