@@ -26,6 +26,10 @@ class AlbumViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.rightBarButtonItems = [UIBarButtonItem.spaceItem(-12), UIBarButtonItem(image: IonIcons.imageWithIcon(ion_ios_plus_empty, size: 30, color: Color.white), style: .Plain, target: self, action: "didTapAdd")]
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Edit", comment: ""), style: .Plain, target: self, action: "didTapEdit")
+        
         loadAlbums()
     }
     
@@ -79,5 +83,18 @@ class AlbumViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         navigationController?.pushViewController(ThumbnailViewController.controller(), animated: true)
+    }
+}
+
+
+// MARK: -
+
+extension AlbumViewController {
+    func didTapAdd() {
+        
+    }
+    
+    func didTapEdit() {
+        
     }
 }
