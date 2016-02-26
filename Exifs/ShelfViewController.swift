@@ -140,7 +140,9 @@ class ShelfViewController: UITableViewController {
     // MARK: - Table view delegate
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        navigationController?.pushViewController(AlbumViewController.controller(), animated: true)
+        let albumViewController = AlbumViewController.controller()
+        albumViewController.album = AssetManager.sharedInstance.albums[indexPath.row]
+        navigationController?.pushViewController(albumViewController, animated: true)
     }
 }
 
