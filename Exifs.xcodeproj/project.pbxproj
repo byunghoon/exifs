@@ -8,12 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		441ED6111C6AD2F60019016C /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441ED6101C6AD2F60019016C /* Album.swift */; };
-		441ED6131C6AE7590019016C /* FetchResultOrganizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441ED6121C6AE7590019016C /* FetchResultOrganizer.swift */; };
 		442443851C7EB7A60034AAFD /* UIStoryboardExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442443841C7EB7A60034AAFD /* UIStoryboardExtensions.swift */; };
 		442443981C7EC2700034AAFD /* UIBarButtonItemExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442443971C7EC2700034AAFD /* UIBarButtonItemExtensions.swift */; };
 		4424439C1C7EC4240034AAFD /* MiniShelfViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4424439B1C7EC4240034AAFD /* MiniShelfViewController.swift */; };
 		4424439E1C7EC4EF0034AAFD /* ThumbnailCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4424439D1C7EC4EF0034AAFD /* ThumbnailCollectionViewController.swift */; };
 		442443A01C7ECED90034AAFD /* ThumbnailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4424439F1C7ECED90034AAFD /* ThumbnailView.swift */; };
+		442443A21C7FD8140034AAFD /* AssetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442443A11C7FD8140034AAFD /* AssetManager.swift */; };
 		449241131C6D6CF9005CCCE8 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449241121C6D6CF9005CCCE8 /* Theme.swift */; };
 		449241151C6D83E8005CCCE8 /* NSDateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449241141C6D83E8005CCCE8 /* NSDateExtensions.swift */; };
 		4492411A1C6D97E3005CCCE8 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449241191C6D97E3005CCCE8 /* NavigationController.swift */; };
@@ -30,13 +30,13 @@
 /* Begin PBXFileReference section */
 		0A1E81A4A22AB1EB7C3535CE /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		441ED6101C6AD2F60019016C /* Album.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
-		441ED6121C6AE7590019016C /* FetchResultOrganizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchResultOrganizer.swift; sourceTree = "<group>"; };
 		442443841C7EB7A60034AAFD /* UIStoryboardExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIStoryboardExtensions.swift; sourceTree = "<group>"; };
 		442443931C7EC24B0034AAFD /* Exifs-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Exifs-Bridging-Header.h"; sourceTree = "<group>"; };
 		442443971C7EC2700034AAFD /* UIBarButtonItemExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIBarButtonItemExtensions.swift; sourceTree = "<group>"; };
 		4424439B1C7EC4240034AAFD /* MiniShelfViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiniShelfViewController.swift; sourceTree = "<group>"; };
 		4424439D1C7EC4EF0034AAFD /* ThumbnailCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThumbnailCollectionViewController.swift; sourceTree = "<group>"; };
 		4424439F1C7ECED90034AAFD /* ThumbnailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThumbnailView.swift; sourceTree = "<group>"; };
+		442443A11C7FD8140034AAFD /* AssetManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetManager.swift; sourceTree = "<group>"; };
 		449241121C6D6CF9005CCCE8 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		449241141C6D83E8005CCCE8 /* NSDateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtensions.swift; sourceTree = "<group>"; };
 		449241191C6D97E3005CCCE8 /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
@@ -98,8 +98,8 @@
 			isa = PBXGroup;
 			children = (
 				449241121C6D6CF9005CCCE8 /* Theme.swift */,
-				441ED6121C6AE7590019016C /* FetchResultOrganizer.swift */,
 				441ED6101C6AD2F60019016C /* Album.swift */,
+				442443A11C7FD8140034AAFD /* AssetManager.swift */,
 				4424439F1C7ECED90034AAFD /* ThumbnailView.swift */,
 				449241161C6D93FE005CCCE8 /* Extensions */,
 				449241191C6D97E3005CCCE8 /* NavigationController.swift */,
@@ -257,7 +257,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4492411C1C6DA06E005CCCE8 /* UIColorExtensions.swift in Sources */,
-				441ED6131C6AE7590019016C /* FetchResultOrganizer.swift in Sources */,
 				4492411A1C6D97E3005CCCE8 /* NavigationController.swift in Sources */,
 				442443851C7EB7A60034AAFD /* UIStoryboardExtensions.swift in Sources */,
 				442443981C7EC2700034AAFD /* UIBarButtonItemExtensions.swift in Sources */,
@@ -269,6 +268,7 @@
 				44D042001C67E99000DC1898 /* AlbumViewController.swift in Sources */,
 				442443A01C7ECED90034AAFD /* ThumbnailView.swift in Sources */,
 				441ED6111C6AD2F60019016C /* Album.swift in Sources */,
+				442443A21C7FD8140034AAFD /* AssetManager.swift in Sources */,
 				4424439E1C7EC4EF0034AAFD /* ThumbnailCollectionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
