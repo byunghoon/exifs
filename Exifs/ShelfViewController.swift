@@ -48,35 +48,17 @@ class ShelfCell: UITableViewCell {
             let diameter = thumbnailContainer.frame.height * UIScreen.mainScreen().scale
             let targetSize = CGSize(width: diameter, height: diameter)
             
-            let options = PHImageRequestOptions()
-            options.resizeMode = PHImageRequestOptionsResizeMode.Exact
-            options.deliveryMode = PHImageRequestOptionsDeliveryMode.Opportunistic
-            
             for i in 0..<min(assets.count, thumbnailViews.count) {
-                let thumbnailView = thumbnailViews[i]
-                let asset = assets[i]
-                
-                thumbnailView.currentRequestID = PHImageManager.defaultManager().requestImageForAsset(asset, targetSize: targetSize, contentMode: .AspectFill, options: options, resultHandler: { (image, info) in
-                    let requestId = info?[PHImageResultRequestIDKey] as? NSNumber
-                    let cancelled = info?[PHImageCancelledKey] as? NSNumber
-                    if requestId?.intValue == thumbnailView.currentRequestID && cancelled?.boolValue != true {
-                        thumbnailView.image = image
-                    }
-                })
+                thumbnailViews[i].load(assets[i], targetSize: targetSize)
             }
         }
-        
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         
         for thumbnailView in thumbnailViews {
-            if let requestID = thumbnailView.currentRequestID {
-                PHImageManager.defaultManager().cancelImageRequest(requestID)
-            }
-            thumbnailView.currentRequestID = nil
-            thumbnailView.image = nil
+            thumbnailView.cancelCurrentLoad()
         }
     }
     
@@ -99,10 +81,6 @@ class ShelfCell: UITableViewCell {
             for i in thumbnailViews.count..<requiredCount {
                 rect.origin.x = (diameter + margin) * CGFloat(i)
                 let thumbnailView = ThumbnailView(frame: rect)
-                thumbnailView.contentMode = .ScaleAspectFill
-                thumbnailView.layer.borderColor = Color.gray85.CGColor
-//                thumbnailView.layer.cornerRadius = 2
-//                thumbnailView.clipsToBounds = true
                 thumbnailContainer.addSubview(thumbnailView)
                 thumbnailViews.append(thumbnailView)
             }
