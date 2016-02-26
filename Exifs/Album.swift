@@ -8,7 +8,7 @@
 
 import Photos
 
-struct Album {
+struct Album: Equatable {
     let id: String
     let title: String
     let assetCount: Int
@@ -27,4 +27,8 @@ struct Album {
         
         assets = fetchResult.objectsAtIndexes(NSIndexSet(indexesInRange: NSMakeRange(0, fetchResult.count))) as? [PHAsset]
     }
+}
+
+func ==(lhs: Album, rhs: Album) -> Bool {
+    return lhs.id == rhs.id
 }
