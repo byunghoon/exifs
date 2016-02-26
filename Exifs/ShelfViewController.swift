@@ -45,7 +45,7 @@ class ShelfCell: UITableViewCell {
         detailLabel.text = "\(album.assetCount)\(dateString)"
         
         if let assets = album.assets {
-            let diameter = thumbnailContainer.frame.height * UIScreen.mainScreen().scale
+            let diameter = thumbnailContainer.frame.height
             let targetSize = CGSize(width: diameter, height: diameter)
             
             for i in 0..<min(assets.count, thumbnailViews.count) {
@@ -81,6 +81,7 @@ class ShelfCell: UITableViewCell {
             for i in thumbnailViews.count..<requiredCount {
                 rect.origin.x = (diameter + margin) * CGFloat(i)
                 let thumbnailView = ThumbnailView(frame: rect)
+                thumbnailView.showsBorders = true
                 thumbnailContainer.addSubview(thumbnailView)
                 thumbnailViews.append(thumbnailView)
             }

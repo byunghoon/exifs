@@ -12,15 +12,23 @@ import Photos
 class ThumbnailView: UIImageView {
     private var currentRequestID: PHImageRequestID?
     
+    var showsBorders = false
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        contentMode = .ScaleAspectFill
-        layer.borderColor = Color.gray85.CGColor
+        commonItit()
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
+        
+        commonItit()
+    }
+    
+    private func commonItit() {
+        contentMode = .ScaleAspectFill
+        layer.borderColor = Color.gray85.CGColor
     }
     
     func load(asset: PHAsset, targetSize: CGSize) {
@@ -28,12 +36,18 @@ class ThumbnailView: UIImageView {
         options.resizeMode = PHImageRequestOptionsResizeMode.Exact
         options.deliveryMode = PHImageRequestOptionsDeliveryMode.Opportunistic
         
-        currentRequestID = PHImageManager.defaultManager().requestImageForAsset(asset, targetSize: targetSize, contentMode: .AspectFill, options: options, resultHandler: { (image, info) in
+        let scale = UIScreen.mainScreen().scale
+        let scaledTargetSize = CGSize(width: targetSize.width * scale, height: targetSize.height * scale)
+        
+        currentRequestID = PHImageManager.defaultManager().requestImageForAsset(asset, targetSize: scaledTargetSize, contentMode: .AspectFill, options: options, resultHandler: { (image, info) in
             let requestId = info?[PHImageResultRequestIDKey] as? NSNumber
             let cancelled = info?[PHImageCancelledKey] as? NSNumber
             if requestId?.intValue == self.currentRequestID && cancelled?.boolValue != true, let image = image {
                 self.image = image
-                self.layer.borderWidth = Unit.pixel
+                
+                if self.showsBorders {
+                    self.layer.borderWidth = Unit.pixel
+                }
             }
         })
     }
