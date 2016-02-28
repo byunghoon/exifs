@@ -10,11 +10,15 @@ import UIKit
 
 class AlbumViewController: UIViewController {
     
+    @IBOutlet weak var gridViewRightMargin: NSLayoutConstraint!
     @IBOutlet weak var shadowView: UIView!
     private let shadowLayer = CAGradientLayer()
     
-    var gridViewController: GridViewController!
-    var shelfViewController: MiniShelfViewController!
+    private var gridViewController: GridViewController!
+    private var shelfViewController: MiniShelfViewController!
+    
+    private var isShelfShown = false
+    private var gestureController: GestureController!
     
     var album: Album!
     
@@ -34,10 +38,12 @@ class AlbumViewController: UIViewController {
         if segue.identifier == "EmbedGrid" {
             gridViewController = segue.destinationViewController as! GridViewController
             gridViewController.album = album
+            gridViewController.collectionView?.scrollsToTop = true
             
         } else if segue.identifier == "EmbedShelf" {
             shelfViewController = segue.destinationViewController as! MiniShelfViewController
             shelfViewController.albums = AssetManager.sharedInstance.albums.filter({ return $0 != album })
+            shelfViewController.tableView.scrollsToTop = false
         }
     }
     
@@ -50,6 +56,35 @@ class AlbumViewController: UIViewController {
         shadowLayer.startPoint = CGPoint(x: 0, y: 0.5)
         shadowLayer.endPoint = CGPoint(x: 1, y: 0.5)
         shadowView.layer.addSublayer(shadowLayer)
+        
+        let config = GestureController.Config(
+            minDuration: 0.05,
+            maxDuration: 0.1,
+            finalTranslation: 100,
+            thresholdTranslation: 30,
+            thresholdVelocity: 200
+        )
+        gestureController = GestureController(config: config)
+        gestureController.continuousActions = { (percentage: CGFloat) in
+            let p = self.isShelfShown ? percentage : percentage + 1
+            let x = config.finalTranslation
+            
+            if p < 0 {
+                self.gridViewRightMargin.constant = x
+            } else if p > 1 {
+                self.gridViewRightMargin.constant = 0
+            } else {
+                self.gridViewRightMargin.constant = x * (1 - p)
+            }
+        }
+        gestureController.discreteActions = {
+            self.gridViewController.collectionView?.reloadData()
+        }
+        gestureController.finished = {
+            self.isShelfShown = self.gridViewRightMargin.constant == config.finalTranslation
+            self.gridViewController.collectionView?.reloadData()
+        }
+        view.addGestureRecognizer(gestureController.gestureRecognizer)
     }
     
     override func viewDidLayoutSubviews() {
