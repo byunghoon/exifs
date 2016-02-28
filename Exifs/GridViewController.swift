@@ -12,10 +12,6 @@ import Photos
 class GridCell: UICollectionViewCell {
     @IBOutlet weak var thumbnailView: ThumbnailView!
     
-    func update(asset: PHAsset) {
-        thumbnailView.load(asset, targetSize: thumbnailView.frame.size)
-    }
-    
     override func prepareForReuse() {
         super.prepareForReuse()
         
@@ -27,7 +23,15 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
     
     private let reuseIdentifier = "GridCell"
     
+    private var imageCache = [String: UIImage]()
+    
     var album: Album!
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        
+        imageCache.removeAll()
+    }
     
     
     // MARK: - Collection view data source
@@ -43,7 +47,13 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! GridCell
         if let asset = album.assets?[indexPath.row] {
-            cell.update(asset)
+            if let image = imageCache[asset.localIdentifier] {
+                cell.thumbnailView.image = image
+            } else {
+                cell.thumbnailView.load(asset, targetSize: cell.thumbnailView.frame.size, completion: { (image) in
+                    self.imageCache[asset.localIdentifier] = image
+                })
+            }
         }
         return cell
     }

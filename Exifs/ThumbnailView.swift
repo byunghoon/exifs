@@ -31,7 +31,7 @@ class ThumbnailView: UIImageView {
         layer.borderColor = Color.gray85.CGColor
     }
     
-    func load(asset: PHAsset, targetSize: CGSize) {
+    func load(asset: PHAsset, targetSize: CGSize, completion: ((image: UIImage) -> Void)? = nil) {
         let options = PHImageRequestOptions()
         options.resizeMode = PHImageRequestOptionsResizeMode.Exact
         options.deliveryMode = PHImageRequestOptionsDeliveryMode.Opportunistic
@@ -40,14 +40,16 @@ class ThumbnailView: UIImageView {
         let scaledTargetSize = CGSize(width: targetSize.width * scale, height: targetSize.height * scale)
         
         currentRequestID = PHImageManager.defaultManager().requestImageForAsset(asset, targetSize: scaledTargetSize, contentMode: .AspectFill, options: options, resultHandler: { (image, info) in
-            let requestId = info?[PHImageResultRequestIDKey] as? NSNumber
+            let requestID = info?[PHImageResultRequestIDKey] as? NSNumber
             let cancelled = info?[PHImageCancelledKey] as? NSNumber
-            if requestId?.intValue == self.currentRequestID && cancelled?.boolValue != true, let image = image {
+            if let currentRequestID = self.currentRequestID, image = image where requestID?.intValue == currentRequestID && cancelled?.boolValue != true {
                 self.image = image
                 
                 if self.showsBorders {
                     self.layer.borderWidth = Unit.pixel
                 }
+                
+                completion?(image: image)
             }
         })
     }
