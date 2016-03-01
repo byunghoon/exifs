@@ -62,7 +62,30 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
     // MARK: - Collection view delegate flow layout
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        let diameter = (collectionView.frame.width - 6) / 3
+        let diameter = itemDiameter(collectionView.frame.width)
         return CGSize(width: diameter, height: diameter)
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return itemSpacing()
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return itemSpacing()
+    }
+    
+    
+    // MARK: - Helper
+    
+    func columnSize() -> Int {
+        return 3
+    }
+    
+    func itemDiameter(collectionViewWidth: CGFloat) -> CGFloat {
+        return (collectionViewWidth - 6) / 3
+    }
+    
+    func itemSpacing() -> CGFloat {
+        return 3
     }
 }

@@ -18,6 +18,7 @@ class AlbumViewController: UIViewController {
     private var shelfViewController: MiniShelfViewController!
     
     private var isShelfShown = false
+    private var referenceScrollPosition: CGFloat = 0
     private var gestureController: GestureController!
     
     var album: Album!
@@ -65,6 +66,11 @@ class AlbumViewController: UIViewController {
             thresholdVelocity: 200
         )
         gestureController = GestureController(config: config)
+        gestureController.began = {
+            if let collectionView = self.gridViewController.collectionView where collectionView.contentSize.height > 0 {
+                self.referenceScrollPosition = collectionView.contentOffset.y / collectionView.contentSize.height
+            }
+        }
         gestureController.continuousActions = { (percentage: CGFloat) in
             let p = self.isShelfShown ? percentage : percentage + 1
             let x = config.finalTranslation
@@ -78,11 +84,11 @@ class AlbumViewController: UIViewController {
             }
         }
         gestureController.discreteActions = {
-            self.gridViewController.collectionView?.reloadData()
+            self.reloadGridView()
         }
         gestureController.finished = {
             self.isShelfShown = self.gridViewRightMargin.constant == config.finalTranslation
-            self.gridViewController.collectionView?.reloadData()
+            self.reloadGridView()
         }
         view.addGestureRecognizer(gestureController.gestureRecognizer)
     }
@@ -91,5 +97,24 @@ class AlbumViewController: UIViewController {
         super.viewDidLayoutSubviews()
         
         shadowLayer.frame = shadowView.bounds
+    }
+    
+    private func reloadGridView() {
+        if let collectionView = gridViewController.collectionView where collectionView.contentSize.height > 0 {
+            collectionView.reloadData()
+            collectionView.contentOffset = CGPoint(x: collectionView.contentOffset.x, y: self.referenceScrollPosition * contentHeight())
+        }
+    }
+    
+    private func contentHeight() -> CGFloat {
+        guard album.assetCount > 0 else {
+            return 1
+        }
+        
+        let itemHeight = gridViewController.itemDiameter(view.frame.width - gridViewRightMargin.constant)
+        let lineSpacing = gridViewController.itemSpacing()
+        let rowSize = ceil(CGFloat(album.assetCount) / CGFloat(gridViewController.columnSize()))
+        
+        return itemHeight * rowSize + lineSpacing * (rowSize - 1)
     }
 }

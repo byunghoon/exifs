@@ -23,6 +23,7 @@ class GestureController: NSObject {
     private(set) var config: Config
     private(set) var gestureRecognizer: UIPanGestureRecognizer!
     
+    var began: (() -> Void)?
     var continuousActions: ((percentage: CGFloat) -> Void)?
     var discreteActions: (() -> Void)?
     var finished: (() -> Void)?
@@ -38,6 +39,9 @@ class GestureController: NSObject {
         let velocity = gestureRecognizer.velocityInView(gestureRecognizer.view).x
         
         switch gestureRecognizer.state {
+        case .Began:
+            began?()
+            
         case .Changed:
             continuousActions?(percentage: translation / config.finalTranslation)
             discreteActions?()
