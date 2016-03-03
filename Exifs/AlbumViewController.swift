@@ -10,6 +10,8 @@ import UIKit
 
 class AlbumViewController: UIViewController {
     
+    @IBOutlet weak var toolbar: UIToolbar!
+    
     @IBOutlet weak var gridViewRightMargin: NSLayoutConstraint!
     @IBOutlet weak var shadowView: UIView!
     private let shadowLayer = CAGradientLayer()
@@ -52,6 +54,13 @@ class AlbumViewController: UIViewController {
         super.viewDidLoad()
         
         navigationItem.title = album.title
+        
+        var items = [UIBarButtonItem]()
+        items.append(UIBarButtonItem.spaceItem(-12))
+        items.append(UIBarButtonItem(image: IonIcons.imageWithIcon(ion_ios_trash_outline, size: 30, color: Color.blue), style: .Plain, target: nil, action: nil))
+        items.append(UIBarButtonItem.flexibleItem())
+        items.append(UIBarButtonItem(title: "Advanced", target: nil, action: nil))
+        toolbar.items = items
         
         shadowLayer.colors = [UIColor(white: 0, alpha: 0.1).CGColor, UIColor(white: 0, alpha: 0).CGColor ]
         shadowLayer.startPoint = CGPoint(x: 0, y: 0.5)
