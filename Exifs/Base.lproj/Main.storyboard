@@ -130,26 +130,28 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="x2s-pQ-D6a" firstAttribute="leading" secondItem="YfW-Ir-Uwe" secondAttribute="trailing" id="FgB-wL-7u3"/>
+                            <constraint firstAttribute="bottom" secondItem="zNj-Fi-PDx" secondAttribute="bottom" constant="-44" id="76I-2U-znr"/>
                             <constraint firstItem="vPK-gx-YYz" firstAttribute="top" secondItem="YfW-Ir-Uwe" secondAttribute="bottom" id="KwX-X7-yQP"/>
                             <constraint firstAttribute="trailing" secondItem="zNj-Fi-PDx" secondAttribute="trailing" id="WIX-Q6-Ut2"/>
                             <constraint firstItem="zNj-Fi-PDx" firstAttribute="leading" secondItem="ap0-eX-yg4" secondAttribute="leading" id="ZZS-U3-xZR"/>
                             <constraint firstItem="x2s-pQ-D6a" firstAttribute="top" secondItem="ZbP-gn-8rh" secondAttribute="bottom" id="aDD-xb-aQ8"/>
+                            <constraint firstItem="vPK-gx-YYz" firstAttribute="top" secondItem="x2s-pQ-D6a" secondAttribute="bottom" id="hL2-Kq-4cs"/>
                             <constraint firstItem="YfW-Ir-Uwe" firstAttribute="top" secondItem="ap0-eX-yg4" secondAttribute="top" id="iKm-H9-UEG"/>
-                            <constraint firstItem="zNj-Fi-PDx" firstAttribute="top" secondItem="YfW-Ir-Uwe" secondAttribute="bottom" id="jew-jd-RzO"/>
                             <constraint firstItem="03I-TR-rO2" firstAttribute="bottom" secondItem="YfW-Ir-Uwe" secondAttribute="bottom" id="l6L-KH-i7S"/>
                             <constraint firstItem="YfW-Ir-Uwe" firstAttribute="leading" secondItem="ap0-eX-yg4" secondAttribute="leading" id="lF2-gz-csn"/>
-                            <constraint firstItem="x2s-pQ-D6a" firstAttribute="bottom" secondItem="YfW-Ir-Uwe" secondAttribute="bottom" id="qen-eO-iuC"/>
                             <constraint firstItem="03I-TR-rO2" firstAttribute="leading" secondItem="YfW-Ir-Uwe" secondAttribute="trailing" id="qrO-6l-vBL"/>
+                            <constraint firstAttribute="trailing" secondItem="x2s-pQ-D6a" secondAttribute="trailing" constant="-100" id="rUI-0K-bix"/>
                             <constraint firstItem="03I-TR-rO2" firstAttribute="top" secondItem="YfW-Ir-Uwe" secondAttribute="top" id="tw3-Lu-sy5"/>
                             <constraint firstAttribute="trailing" secondItem="YfW-Ir-Uwe" secondAttribute="trailing" id="vMm-KY-R6o"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="gridViewBottomMargin" destination="KwX-X7-yQP" id="Wqs-Tl-7Qs"/>
-                        <outlet property="gridViewRightMargin" destination="vMm-KY-R6o" id="YHw-gI-T89"/>
+                        <outlet property="gridViewBottomMargin" destination="KwX-X7-yQP" id="Wug-vK-18R"/>
+                        <outlet property="gridViewRightMargin" destination="vMm-KY-R6o" id="uCz-mv-pb9"/>
                         <outlet property="shadowView" destination="03I-TR-rO2" id="EuN-gt-ma6"/>
+                        <outlet property="shelfViewRightMargin" destination="rUI-0K-bix" id="Hy6-f2-yrL"/>
                         <outlet property="toolbar" destination="zNj-Fi-PDx" id="lxk-Fe-lLL"/>
+                        <outlet property="toolbarBottomMargin" destination="76I-2U-znr" id="ceK-kc-pBP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nd6-jB-q37" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -164,7 +166,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="3" minimumInteritemSpacing="3" id="XLj-F8-Z1h">
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="3" minimumInteritemSpacing="3" id="XLj-F8-Z1h" customClass="GridViewFlowLayout" customModule="Exifs" customModuleProvider="target">
                             <size key="itemSize" width="125" height="125"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>

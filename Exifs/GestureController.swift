@@ -24,8 +24,8 @@ class GestureController: NSObject {
     private(set) var gestureRecognizer: UIPanGestureRecognizer!
     
     var began: (() -> Void)?
-    var continuousActions: ((percentage: CGFloat) -> Void)?
-    var discreteActions: (() -> Void)?
+    var animations: ((percentage: CGFloat) -> Void)?
+    var constraintAnimations: ((percentage: CGFloat) -> Void)?
     var finished: (() -> Void)?
     
     init(config: Config) {
@@ -43,8 +43,8 @@ class GestureController: NSObject {
             began?()
             
         case .Changed:
-            continuousActions?(percentage: translation / config.finalTranslation)
-            discreteActions?()
+            animations?(percentage: translation / config.finalTranslation)
+            constraintAnimations?(percentage: translation / config.finalTranslation)
             
         case .Cancelled:
             animate(0, duration: config.maxDuration)
@@ -83,19 +83,15 @@ class GestureController: NSObject {
     }
     
     private func animate(percentage: CGFloat, duration: NSTimeInterval) {
-        let timer = NSTimer.scheduledTimerWithTimeInterval(0, target: self, selector: #selector(GestureController.timerDidFire), userInfo: nil, repeats: true)
-        
-        gestureRecognizer.view?.setNeedsUpdateConstraints()
+        gestureRecognizer.view?.layoutIfNeeded()
+        constraintAnimations?(percentage: percentage)
         UIView.animateWithDuration(duration, delay: 0, options: .CurveEaseOut, animations: {
-            self.continuousActions?(percentage: percentage)
+            self.gestureRecognizer.view?.layoutIfNeeded()
+            
+            self.animations?(percentage: percentage)
             
             }, completion: { (finished) in
-                timer.invalidate()
                 self.finished?()
         })
-    }
-    
-    @objc func timerDidFire() {
-        discreteActions?()
     }
 }

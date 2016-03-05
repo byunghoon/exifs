@@ -63,15 +63,21 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         let diameter = itemDiameter(collectionView.frame.width)
+        
+        let deficit = (diameter * CGFloat(columnSize()) + totalInteritemSpacing()) - collectionView.frame.width
+        if indexPath.row % columnSize() >= columnSize() - Int(deficit) {
+            return CGSize(width: diameter - 1, height: diameter)
+        }
+        
         return CGSize(width: diameter, height: diameter)
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
-        return itemSpacing()
+        return 1
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
-        return itemSpacing()
+        return 1
     }
     
     
@@ -81,11 +87,34 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
         return 3
     }
     
-    func itemDiameter(collectionViewWidth: CGFloat) -> CGFloat {
-        return (collectionViewWidth - 6) / 3
+    func itemSpacing() -> CGFloat {
+        return 1
     }
     
-    func itemSpacing() -> CGFloat {
-        return 3
+    func totalInteritemSpacing() -> CGFloat {
+        return itemSpacing() * CGFloat(columnSize() - 1)
+    }
+    
+    func itemDiameter(collectionViewWidth: CGFloat) -> CGFloat {
+        return ceil((collectionViewWidth - totalInteritemSpacing()) / CGFloat(columnSize()))
+    }
+    
+    func estimatedContentHeight(collectionViewWidth: CGFloat) -> CGFloat {
+        guard album.assetCount > 0 else {
+            return 1
+        }
+        
+        let rowSize = ceil(CGFloat(album.assetCount) / CGFloat(columnSize()))
+        return itemDiameter(collectionViewWidth) * rowSize + itemSpacing() * (rowSize - 1)
+    }
+}
+
+class GridViewFlowLayout: UICollectionViewFlowLayout {
+    override func initialLayoutAttributesForAppearingItemAtIndexPath(itemIndexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
+        return layoutAttributesForItemAtIndexPath(itemIndexPath)
+    }
+    
+    override func finalLayoutAttributesForDisappearingItemAtIndexPath(itemIndexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
+        return layoutAttributesForItemAtIndexPath(itemIndexPath)
     }
 }

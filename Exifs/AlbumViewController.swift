@@ -14,6 +14,8 @@ class AlbumViewController: UIViewController {
     
     @IBOutlet weak var gridViewRightMargin: NSLayoutConstraint!
     @IBOutlet weak var gridViewBottomMargin: NSLayoutConstraint!
+    @IBOutlet weak var shelfViewRightMargin: NSLayoutConstraint!
+    @IBOutlet weak var toolbarBottomMargin: NSLayoutConstraint!
     
     @IBOutlet weak var shadowView: UIView!
     private let shadowLayer = CAGradientLayer()
@@ -22,8 +24,8 @@ class AlbumViewController: UIViewController {
     private var shelfViewController: MiniShelfViewController!
     
     private var isShelfShown = false
-    private var referenceScrollPosition: CGFloat = 0
     private var gestureController: GestureController!
+    private var gridViewProperties: CollectionViewProperties?
     
     var album: Album!
     
@@ -67,7 +69,7 @@ class AlbumViewController: UIViewController {
         shadowLayer.colors = [UIColor(white: 0, alpha: 0.1).CGColor, UIColor(white: 0, alpha: 0).CGColor ]
         shadowLayer.startPoint = CGPoint(x: 0, y: 0.5)
         shadowLayer.endPoint = CGPoint(x: 1, y: 0.5)
-        shadowView.layer.addSublayer(shadowLayer)
+//        shadowView.layer.addSublayer(shadowLayer)
         
         setupGesture()
     }
@@ -76,8 +78,15 @@ class AlbumViewController: UIViewController {
         super.viewDidLayoutSubviews()
         
         shadowLayer.frame = shadowView.bounds
+        
+        if gridViewBottomMargin.constant == 0 {
+            let maxWidth = view.frame.width
+            let minWidth = maxWidth - shelfViewController.view.frame.width
+            let ratio = minWidth / maxWidth
+            let newHeight = gridViewController.view.frame.height / ratio
+            gridViewBottomMargin.constant = gridViewController.view.frame.height - newHeight
+        }
     }
-    
 }
 
 private extension AlbumViewController {
@@ -86,59 +95,94 @@ private extension AlbumViewController {
         let config = GestureController.Config(
             minDuration: 0.05,
             maxDuration: 0.1,
-            finalTranslation: 100,
+            finalTranslation: shelfViewController.view.frame.width,
             thresholdTranslation: 30,
             thresholdVelocity: 200
         )
         gestureController = GestureController(config: config)
+        // TODO: [weak self]
         gestureController.began = {
             if let collectionView = self.gridViewController.collectionView where collectionView.contentSize.height > 0 {
-                self.referenceScrollPosition = collectionView.contentOffset.y / collectionView.contentSize.height
+                self.gridViewProperties = CollectionViewProperties(collectionView: collectionView)
             }
         }
-        gestureController.continuousActions = { (percentage: CGFloat) in
+        gestureController.constraintAnimations = { (percentage: CGFloat) in
             let p = self.isShelfShown ? percentage : percentage + 1
             
             if p < 0 {
-                self.gridViewRightMargin.constant = config.finalTranslation
-                self.gridViewBottomMargin.constant = self.toolbar.frame.height
+                self.shelfViewRightMargin.constant = 0
+                self.toolbarBottomMargin.constant = 0
                 
             } else if p > 1 {
-                self.gridViewRightMargin.constant = 0
-                self.gridViewBottomMargin.constant = 0
+                self.shelfViewRightMargin.constant = -config.finalTranslation
+                self.toolbarBottomMargin.constant = -self.toolbar.frame.height
                 
             } else {
-                self.gridViewRightMargin.constant = config.finalTranslation * (1 - p)
-                self.gridViewBottomMargin.constant = self.toolbar.frame.height * (1 - p)
+                self.shelfViewRightMargin.constant = -config.finalTranslation * p
+                self.toolbarBottomMargin.constant = -self.toolbar.frame.height * p
             }
         }
-        gestureController.discreteActions = {
-            self.reloadGridView()
+        gestureController.animations = { (percentage: CGFloat) in
+            let maxWidth = self.view.frame.width
+            let minWidth = maxWidth - self.shelfViewController.view.frame.width
+            let maxHeight = self.view.frame.height - self.gridViewBottomMargin.constant
+            
+            let s, tx, ty: CGFloat
+            if self.isShelfShown {
+                s = (minWidth - self.shelfViewRightMargin.constant) / minWidth
+                tx = minWidth * (s - 1) / 2
+                ty = maxHeight * (s - 1) / 2
+                
+            } else {
+                s = (minWidth - self.shelfViewRightMargin.constant) / maxWidth
+                tx = maxWidth * (s - 1) / 2
+                ty = maxHeight * (s - 1) / 2
+            }
+            
+            self.gridViewController.view.transform = CGAffineTransformScale(CGAffineTransformMakeTranslation(tx, ty), s, s)
+            
+            if let properties = self.gridViewProperties, collectionView = self.gridViewController.collectionView {
+                var contentInset = properties.contentInset
+                contentInset.top /= s
+                collectionView.contentInset = contentInset
+                
+                var contentOffset = properties.contentOffset
+                contentOffset.y = properties.contentOffset.y + properties.contentInset.top - contentInset.top
+                collectionView.contentOffset = contentOffset
+            }
         }
         gestureController.finished = {
-            self.isShelfShown = self.gridViewRightMargin.constant == config.finalTranslation
-            self.reloadGridView()
+            self.isShelfShown = self.shelfViewRightMargin.constant == 0
+            
+            self.gridViewController.view.transform = CGAffineTransformIdentity
+            self.gridViewRightMargin.constant = self.shelfViewController.view.frame.width + self.shelfViewRightMargin.constant
+            
+            if let properties = self.gridViewProperties, collectionView = self.gridViewController.collectionView {
+                collectionView.reloadData()
+                let height =  self.gridViewController.estimatedContentHeight(self.view.frame.width - self.gridViewRightMargin.constant)
+                let y = properties.scrollPosition * height - properties.contentInset.top
+                collectionView.contentOffset = CGPoint(x: properties.contentOffset.x, y: max(y, -properties.contentInset.top))
+                collectionView.contentInset = properties.contentInset
+            }
         }
         view.addGestureRecognizer(gestureController.gestureRecognizer)
     }
+}
+
+struct CollectionViewProperties {
+    let contentInset: UIEdgeInsets
+    let contentOffset: CGPoint
+    let contentSize: CGSize
     
-    private func reloadGridView() {
-        if let collectionView = gridViewController.collectionView where collectionView.contentSize.height > 0 {
-            collectionView.reloadData()
-            let y = self.referenceScrollPosition * gridViewContentHeight()
-            collectionView.contentOffset = CGPoint(x: collectionView.contentOffset.x, y: max(y, -collectionView.contentInset.top))
-        }
+    init(collectionView: UICollectionView) {
+        contentInset = collectionView.contentInset
+        contentOffset = collectionView.contentOffset
+        contentSize = collectionView.contentSize
     }
     
-    private func gridViewContentHeight() -> CGFloat {
-        guard album.assetCount > 0 else {
-            return 1
+    var scrollPosition: CGFloat {
+        get {
+            return (contentInset.top + contentOffset.y) / contentSize.height
         }
-        
-        let itemHeight = gridViewController.itemDiameter(view.frame.width - gridViewRightMargin.constant)
-        let lineSpacing = gridViewController.itemSpacing()
-        let rowSize = ceil(CGFloat(album.assetCount) / CGFloat(gridViewController.columnSize()))
-        
-        return itemHeight * rowSize + lineSpacing * (rowSize - 1)
     }
 }
