@@ -31,7 +31,7 @@ class GestureController: NSObject {
     init(config: Config) {
         self.config = config
         super.init()
-        self.gestureRecognizer = UIPanGestureRecognizer(target: self, action: "handleGesture:")
+        self.gestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(GestureController.handleGesture(_:)))
     }
     
     @objc func handleGesture(gestureRecognizer: UIPanGestureRecognizer) {
@@ -83,7 +83,7 @@ class GestureController: NSObject {
     }
     
     private func animate(percentage: CGFloat, duration: NSTimeInterval) {
-        let timer = NSTimer.scheduledTimerWithTimeInterval(0, target: self, selector: "timerDidFire", userInfo: nil, repeats: true)
+        let timer = NSTimer.scheduledTimerWithTimeInterval(0, target: self, selector: #selector(GestureController.timerDidFire), userInfo: nil, repeats: true)
         
         gestureRecognizer.view?.setNeedsUpdateConstraints()
         UIView.animateWithDuration(duration, delay: 0, options: .CurveEaseOut, animations: {
