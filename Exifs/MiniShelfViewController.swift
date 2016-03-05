@@ -17,7 +17,7 @@ class MiniShelfCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        backgroundColor = Color.gray85
+//        backgroundColor = Color.gray85
     }
     
     func update(album: Album) {
@@ -46,7 +46,7 @@ class MiniShelfViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = Color.gray85
+//        view.backgroundColor = Color.gray85
     }
     
     

@@ -13,6 +13,8 @@ class AlbumViewController: UIViewController {
     @IBOutlet weak var toolbar: UIToolbar!
     
     @IBOutlet weak var gridViewRightMargin: NSLayoutConstraint!
+    @IBOutlet weak var gridViewBottomMargin: NSLayoutConstraint!
+    
     @IBOutlet weak var shadowView: UIView!
     private let shadowLayer = CAGradientLayer()
     
@@ -67,6 +69,20 @@ class AlbumViewController: UIViewController {
         shadowLayer.endPoint = CGPoint(x: 1, y: 0.5)
         shadowView.layer.addSublayer(shadowLayer)
         
+        setupGesture()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        shadowLayer.frame = shadowView.bounds
+    }
+    
+}
+
+private extension AlbumViewController {
+    
+    private func setupGesture() {
         let config = GestureController.Config(
             minDuration: 0.05,
             maxDuration: 0.1,
@@ -82,14 +98,18 @@ class AlbumViewController: UIViewController {
         }
         gestureController.continuousActions = { (percentage: CGFloat) in
             let p = self.isShelfShown ? percentage : percentage + 1
-            let x = config.finalTranslation
             
             if p < 0 {
-                self.gridViewRightMargin.constant = x
+                self.gridViewRightMargin.constant = config.finalTranslation
+                self.gridViewBottomMargin.constant = self.toolbar.frame.height
+                
             } else if p > 1 {
                 self.gridViewRightMargin.constant = 0
+                self.gridViewBottomMargin.constant = 0
+                
             } else {
-                self.gridViewRightMargin.constant = x * (1 - p)
+                self.gridViewRightMargin.constant = config.finalTranslation * (1 - p)
+                self.gridViewBottomMargin.constant = self.toolbar.frame.height * (1 - p)
             }
         }
         gestureController.discreteActions = {
@@ -102,20 +122,15 @@ class AlbumViewController: UIViewController {
         view.addGestureRecognizer(gestureController.gestureRecognizer)
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        shadowLayer.frame = shadowView.bounds
-    }
-    
     private func reloadGridView() {
         if let collectionView = gridViewController.collectionView where collectionView.contentSize.height > 0 {
             collectionView.reloadData()
-            collectionView.contentOffset = CGPoint(x: collectionView.contentOffset.x, y: self.referenceScrollPosition * contentHeight())
+            let y = self.referenceScrollPosition * gridViewContentHeight()
+            collectionView.contentOffset = CGPoint(x: collectionView.contentOffset.x, y: max(y, -collectionView.contentInset.top))
         }
     }
     
-    private func contentHeight() -> CGFloat {
+    private func gridViewContentHeight() -> CGFloat {
         guard album.assetCount > 0 else {
             return 1
         }
