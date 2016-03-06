@@ -88,6 +88,8 @@ class AlbumViewController: UIViewController {
             let newHeight = gridViewController.view.frame.height / ratio
             gridViewBottomMargin.constant = gridViewController.view.frame.height - newHeight
         }
+        
+        shelfViewController.tableView.contentInset.bottom = toolbar.frame.height
     }
 }
 

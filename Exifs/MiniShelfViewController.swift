@@ -11,17 +11,26 @@ import UIKit
 class MiniShelfCell: UITableViewCell {
     
     @IBOutlet weak var thumbnailView: ThumbnailView!
+    @IBOutlet weak var overlayLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var countLabel: UILabel!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        overlayLabel.font = IonIcons.fontWithSize(36)
+        overlayLabel.text = ""
+        overlayLabel.layer.cornerRadius = 30
+        thumbnailView.layer.cornerRadius = 30
+    }
     
     func update(album: Album) {
         if let asset = album.assets?.first {
             thumbnailView.load(asset, targetSize: thumbnailView.frame.size)
         }
         
-        titleLabel.text = album.title
-        
-        countLabel.text = "\(album.assetCount)"
+        let att = NSMutableAttributedString(string: "\(album.title) \(album.assetCount)", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(12), NSForegroundColorAttributeName: Color.black])
+        att.addAttribute(NSForegroundColorAttributeName, value: Color.gray60, range: (att.string as NSString).rangeOfString("\(album.assetCount)"))
+        titleLabel.attributedText = att
     }
     
     override func prepareForReuse() {
@@ -35,7 +44,15 @@ class MiniShelfViewController: UITableViewController {
     
     private let reuseIdentifier = "MiniShelfCell"
     
+    @IBOutlet weak var headerLabel: UILabel!
+    
     var albums: [Album]!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        headerLabel.textColor = Color.gray60
+    }
     
     
     // MARK: - Table view data source
@@ -49,7 +66,7 @@ class MiniShelfViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 110
+        return 105
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

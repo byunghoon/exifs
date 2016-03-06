@@ -17,16 +17,16 @@ class ThumbnailView: UIImageView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        commonItit()
+        commonInit()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        commonItit()
+        commonInit()
     }
     
-    private func commonItit() {
+    private func commonInit() {
         contentMode = .ScaleAspectFill
         layer.borderColor = Color.gray85.CGColor
     }
