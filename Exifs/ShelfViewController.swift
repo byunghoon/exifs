@@ -104,13 +104,13 @@ class ShelfViewController: UITableViewController {
     }
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .Default
+        return Theme.statusBarStyle
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.rightBarButtonItems = [UIBarButtonItem.spaceItem(-12), UIBarButtonItem(image: IonIcons.imageWithIcon(ion_ios_plus_empty, size: 30, color: Color.blue), style: .Plain, target: self, action: #selector(ShelfViewController.didTapAdd))]
+        navigationItem.rightBarButtonItems = [UIBarButtonItem.spaceItem(-12), UIBarButtonItem(image: IonIcons.imageWithIcon(ion_ios_plus_empty, size: 30, color: Theme.primaryColor), style: .Plain, target: self, action: #selector(ShelfViewController.didTapAdd))]
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Edit", comment: ""), style: .Plain, target: self, action: #selector(ShelfViewController.didTapEdit))
     }
@@ -140,6 +140,8 @@ class ShelfViewController: UITableViewController {
     // MARK: - Table view delegate
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        
         let albumViewController = AlbumViewController.controller()
         albumViewController.album = AssetManager.sharedInstance.albums[indexPath.row]
         navigationController?.pushViewController(albumViewController, animated: true)

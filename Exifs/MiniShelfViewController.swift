@@ -14,12 +14,6 @@ class MiniShelfCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var countLabel: UILabel!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-//        backgroundColor = Color.gray85
-    }
-    
     func update(album: Album) {
         if let asset = album.assets?.first {
             thumbnailView.load(asset, targetSize: thumbnailView.frame.size)
@@ -42,12 +36,6 @@ class MiniShelfViewController: UITableViewController {
     private let reuseIdentifier = "MiniShelfCell"
     
     var albums: [Album]!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-//        view.backgroundColor = Color.gray85
-    }
     
     
     // MARK: - Table view data source

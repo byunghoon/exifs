@@ -11,13 +11,13 @@ import UIKit
 class AlbumViewController: UIViewController {
     
     @IBOutlet weak var toolbar: UIToolbar!
-    
+   
     @IBOutlet weak var gridViewRightMargin: NSLayoutConstraint!
     @IBOutlet weak var gridViewBottomMargin: NSLayoutConstraint!
     @IBOutlet weak var shelfViewRightMargin: NSLayoutConstraint!
     @IBOutlet weak var toolbarBottomMargin: NSLayoutConstraint!
     
-    @IBOutlet weak var shadowView: UIView!
+    @IBOutlet weak var separator: UIView!
     private let shadowLayer = CAGradientLayer()
     
     private var gridViewController: GridViewController!
@@ -38,7 +38,7 @@ class AlbumViewController: UIViewController {
     }
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .Default
+        return Theme.statusBarStyle
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -61,23 +61,25 @@ class AlbumViewController: UIViewController {
         
         var items = [UIBarButtonItem]()
         items.append(UIBarButtonItem.spaceItem(-12))
-        items.append(UIBarButtonItem(image: IonIcons.imageWithIcon(ion_ios_trash_outline, size: 30, color: Color.blue), style: .Plain, target: nil, action: nil))
+        items.append(UIBarButtonItem(image: IonIcons.imageWithIcon(ion_ios_trash_outline, size: 30, color: Theme.primaryColor), style: .Plain, target: nil, action: nil))
         items.append(UIBarButtonItem.flexibleItem())
-        items.append(UIBarButtonItem(title: "Advanced", target: nil, action: nil))
+        items.append(UIBarButtonItem(title: "Advanced", color: Theme.primaryColor, target: nil, action: nil))
         toolbar.items = items
+        toolbar.barTintColor = Color.white
+        toolbar.translucent = false
         
         shadowLayer.colors = [UIColor(white: 0, alpha: 0.1).CGColor, UIColor(white: 0, alpha: 0).CGColor ]
         shadowLayer.startPoint = CGPoint(x: 0, y: 0.5)
         shadowLayer.endPoint = CGPoint(x: 1, y: 0.5)
-//        shadowView.layer.addSublayer(shadowLayer)
-        
+        separator.layer.addSublayer(shadowLayer)
+
         setupGesture()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        shadowLayer.frame = shadowView.bounds
+        shadowLayer.frame = separator.bounds
         
         if gridViewBottomMargin.constant == 0 {
             let maxWidth = view.frame.width

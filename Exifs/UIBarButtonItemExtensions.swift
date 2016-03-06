@@ -19,8 +19,8 @@ extension UIBarButtonItem {
         return item
     }
     
-    convenience init(title: String?, target: AnyObject?, action: Selector) {
+    convenience init(title: String?, color: UIColor, target: AnyObject?, action: Selector) {
         self.init(title: title, style: .Plain, target: target, action: action)
-        setTitleTextAttributes([NSForegroundColorAttributeName: Color.blue], forState: .Normal)
+        setTitleTextAttributes([NSForegroundColorAttributeName: color], forState: .Normal)
     }
 }

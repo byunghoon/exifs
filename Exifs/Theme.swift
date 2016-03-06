@@ -22,4 +22,14 @@ struct Color {
     static let blue = UIColor(hex: 0x0B6DB7)
     static let green = UIColor(hex: 0xC0D84D)
     static let teal = UIColor(hex: 0x00A6A9)
+    static let purple = UIColor(hex: 0x5D3462)
+    static let mulberry = UIColor(hex: 0xDB4E9C)
+    static let orange = UIColor(hex: 0xED9149)
+}
+
+struct Theme {
+    static let statusBarStyle = UIStatusBarStyle.Default
+    // sky blue 00B5E3
+    // green 50BA6E
+    static let primaryColor = Color.blue
 }
