@@ -20,12 +20,16 @@ class ShelfCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        accessoryView = UIImageView(image: IonIcons.imageWithIcon(ion_ios_arrow_right, size: 22, color: Color.gray60x))
+        
         detailLabel.textColor = Color.gray60
         updateThumbnailViews()
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        
+        accessoryView?.frame.origin.x += 8
         
         contentView.layoutIfNeeded()
         updateThumbnailViews()

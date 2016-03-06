@@ -16,6 +16,7 @@ struct Color {
     static let black = UIColor.blackColor()
     static let gray10 = UIColor(hex: 0x1D1E23)
     static let gray60 = UIColor(hex: 0x959EA2)
+    static let gray60x = UIColor(hex: 0xB0B7BA) // when used for background or icon
     static let gray85 = UIColor(white: 0.85, alpha: 1)
     static let white = UIColor.whiteColor()
     
