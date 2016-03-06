@@ -24,3 +24,13 @@ extension UIBarButtonItem {
         setTitleTextAttributes([NSForegroundColorAttributeName: color], forState: .Normal)
     }
 }
+
+struct BarButtonItemUtility {
+    static func backButtonImage(color: UIColor) -> UIImage {
+        let diameter: CGFloat = 28
+        var image = IonIcons.imageWithIcon(ion_ios_arrow_left, size: diameter, color: color)
+        image = image.resizableImageWithCapInsets(UIEdgeInsets(top: 0, left: diameter, bottom: 0, right: 0))
+        image = image.imageWithAlignmentRectInsets(UIEdgeInsets(top: 0, left: 7, bottom: 0, right: 0))
+        return image
+    }
+}

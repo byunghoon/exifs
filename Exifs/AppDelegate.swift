@@ -24,6 +24,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName: UIFont.systemFontOfSize(16, weight: UIFontWeightRegular)], forState: .Normal)
         
+        UIBarButtonItem.appearance().setBackButtonBackgroundImage(BarButtonItemUtility.backButtonImage(Theme.primaryColor), forState: .Normal, barMetrics: .Default)
+        UIBarButtonItem.appearance().setBackButtonBackgroundImage(BarButtonItemUtility.backButtonImage(Theme.primaryColor.highlightedColor()), forState: .Highlighted, barMetrics: .Default)
+        UIBarButtonItem.appearance().setBackButtonBackgroundImage(BarButtonItemUtility.backButtonImage(Theme.primaryColor), forState: .Normal, barMetrics: .Compact)
+        UIBarButtonItem.appearance().setBackButtonBackgroundImage(BarButtonItemUtility.backButtonImage(Theme.primaryColor.highlightedColor()), forState: .Highlighted, barMetrics: .Compact)
+        
         return true
     }
 

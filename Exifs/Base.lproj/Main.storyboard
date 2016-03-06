@@ -83,7 +83,9 @@
                             <outlet property="delegate" destination="VSP-kZ-w1F" id="D4i-KA-zfz"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Albums" id="fro-g9-Egc"/>
+                    <navigationItem key="navigationItem" title="Albums" id="fro-g9-Egc">
+                        <barButtonItem key="backBarButtonItem" title=" " id="lAU-wi-XZk"/>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wS8-Tx-tzV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
