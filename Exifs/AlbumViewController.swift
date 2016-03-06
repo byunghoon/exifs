@@ -63,7 +63,7 @@ class AlbumViewController: UIViewController {
         items.append(UIBarButtonItem.spaceItem(-12))
         items.append(UIBarButtonItem(image: IonIcons.imageWithIcon(ion_ios_trash_outline, size: 30, color: Theme.primaryColor), style: .Plain, target: nil, action: nil))
         items.append(UIBarButtonItem.flexibleItem())
-        items.append(UIBarButtonItem(title: "Advanced", color: Theme.primaryColor, target: nil, action: nil))
+        items.append(UIBarButtonItem(title: "Advanced", style: .Plain, target: nil, action: nil))
         toolbar.items = items
         toolbar.barTintColor = Color.white
         toolbar.translucent = false

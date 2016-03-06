@@ -18,11 +18,6 @@ extension UIBarButtonItem {
         item.width = width
         return item
     }
-    
-    convenience init(title: String?, color: UIColor, target: AnyObject?, action: Selector) {
-        self.init(title: title, style: .Plain, target: target, action: action)
-        setTitleTextAttributes([NSForegroundColorAttributeName: color], forState: .Normal)
-    }
 }
 
 struct BarButtonItemUtility {

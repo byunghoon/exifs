@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().translucent = false
         UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName: UIFont.systemFontOfSize(16, weight: UIFontWeightMedium)]
         
-        UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName: UIFont.systemFontOfSize(16, weight: UIFontWeightRegular)], forState: .Normal)
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: Theme.primaryColor, NSFontAttributeName: UIFont.systemFontOfSize(16, weight: UIFontWeightRegular)], forState: .Normal)
         
         UIBarButtonItem.appearance().setBackButtonBackgroundImage(BarButtonItemUtility.backButtonImage(Theme.primaryColor), forState: .Normal, barMetrics: .Default)
         UIBarButtonItem.appearance().setBackButtonBackgroundImage(BarButtonItemUtility.backButtonImage(Theme.primaryColor.highlightedColor()), forState: .Highlighted, barMetrics: .Default)
