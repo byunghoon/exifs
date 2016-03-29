@@ -22,3 +22,29 @@ extension PHFetchResult {
         }
     }
 }
+
+extension PHAssetCollection {
+    var name: String {
+        get {
+            return localizedTitle ?? "Untitled"
+        }
+    }
+    
+    var exactCount: Int {
+        get {
+            if let assetWrapper = DataManager.sharedInstance.photos.map[localIdentifier] {
+                return assetWrapper.assetCount
+            }
+            return 0
+        }
+    }
+    
+    var assets: [PHAsset] {
+        get {
+            if let assetWrapper = DataManager.sharedInstance.photos.map[localIdentifier] {
+                return assetWrapper.assets
+            }
+            return []
+        }
+    }
+}

@@ -7,13 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		441ED6111C6AD2F60019016C /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441ED6101C6AD2F60019016C /* Album.swift */; };
 		442443851C7EB7A60034AAFD /* UIStoryboardExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442443841C7EB7A60034AAFD /* UIStoryboardExtensions.swift */; };
 		442443981C7EC2700034AAFD /* UIBarButtonItemExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442443971C7EC2700034AAFD /* UIBarButtonItemExtensions.swift */; };
 		4424439C1C7EC4240034AAFD /* MiniShelfViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4424439B1C7EC4240034AAFD /* MiniShelfViewController.swift */; };
 		4424439E1C7EC4EF0034AAFD /* GridViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4424439D1C7EC4EF0034AAFD /* GridViewController.swift */; };
 		442443A01C7ECED90034AAFD /* ThumbnailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4424439F1C7ECED90034AAFD /* ThumbnailView.swift */; };
-		442443A21C7FD8140034AAFD /* AssetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442443A11C7FD8140034AAFD /* AssetManager.swift */; };
+		442443A21C7FD8140034AAFD /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442443A11C7FD8140034AAFD /* DataManager.swift */; };
 		442443A41C83A6800034AAFD /* GestureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442443A31C83A6800034AAFD /* GestureController.swift */; };
 		4472B0441C91099F004B819B /* CoreDataBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4472B0431C91099F004B819B /* CoreDataBridge.swift */; };
 		449241131C6D6CF9005CCCE8 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449241121C6D6CF9005CCCE8 /* Theme.swift */; };
@@ -35,14 +34,13 @@
 
 /* Begin PBXFileReference section */
 		0A1E81A4A22AB1EB7C3535CE /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		441ED6101C6AD2F60019016C /* Album.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
 		442443841C7EB7A60034AAFD /* UIStoryboardExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIStoryboardExtensions.swift; sourceTree = "<group>"; };
 		442443931C7EC24B0034AAFD /* Exifs-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Exifs-Bridging-Header.h"; sourceTree = "<group>"; };
 		442443971C7EC2700034AAFD /* UIBarButtonItemExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIBarButtonItemExtensions.swift; sourceTree = "<group>"; };
 		4424439B1C7EC4240034AAFD /* MiniShelfViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiniShelfViewController.swift; sourceTree = "<group>"; };
 		4424439D1C7EC4EF0034AAFD /* GridViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridViewController.swift; sourceTree = "<group>"; };
 		4424439F1C7ECED90034AAFD /* ThumbnailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThumbnailView.swift; sourceTree = "<group>"; };
-		442443A11C7FD8140034AAFD /* AssetManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetManager.swift; sourceTree = "<group>"; };
+		442443A11C7FD8140034AAFD /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		442443A31C83A6800034AAFD /* GestureController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GestureController.swift; sourceTree = "<group>"; };
 		4472B0431C91099F004B819B /* CoreDataBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataBridge.swift; sourceTree = "<group>"; };
 		449241121C6D6CF9005CCCE8 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
@@ -80,6 +78,7 @@
 		4472B0421C910982004B819B /* Infrastructure */ = {
 			isa = PBXGroup;
 			children = (
+				442443A11C7FD8140034AAFD /* DataManager.swift */,
 				4472B0431C91099F004B819B /* CoreDataBridge.swift */,
 				44CD11801C92787600EC446F /* PhotosBridge.swift */,
 				44CD117E1C9277E800EC446F /* Definitions.swift */,
@@ -121,8 +120,6 @@
 			isa = PBXGroup;
 			children = (
 				449241121C6D6CF9005CCCE8 /* Theme.swift */,
-				441ED6101C6AD2F60019016C /* Album.swift */,
-				442443A11C7FD8140034AAFD /* AssetManager.swift */,
 				4424439F1C7ECED90034AAFD /* ThumbnailView.swift */,
 				442443A31C83A6800034AAFD /* GestureController.swift */,
 				449C33541CA361D000CC275E /* Logger.swift */,
@@ -298,9 +295,8 @@
 				442443A41C83A6800034AAFD /* GestureController.swift in Sources */,
 				44CD11811C92787600EC446F /* PhotosBridge.swift in Sources */,
 				442443A01C7ECED90034AAFD /* ThumbnailView.swift in Sources */,
-				441ED6111C6AD2F60019016C /* Album.swift in Sources */,
-				442443A21C7FD8140034AAFD /* AssetManager.swift in Sources */,
 				44CD117F1C9277E800EC446F /* Definitions.swift in Sources */,
+				442443A21C7FD8140034AAFD /* DataManager.swift in Sources */,
 				4424439E1C7EC4EF0034AAFD /* GridViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -35,26 +35,24 @@ class ShelfCell: UITableViewCell {
         updateThumbnailViews()
     }
     
-    func update(album: Album) {
-        titleLabel.text = album.title
+    func update(album: PHAssetCollection) {
+        titleLabel.text = album.name
         
         var dateString = ""
-        if let earliestDate = album.assets?.last?.creationDate, latestDate = album.assets?.first?.creationDate {
+        if let earliestDate = album.assets.last?.creationDate, latestDate = album.assets.first?.creationDate {
             if earliestDate.isEqualToDate(latestDate) {
                 dateString = "  ·  \(earliestDate.formattedString())"
             } else {
                 dateString = "  ·  \(earliestDate.formattedString()) to \(latestDate.formattedString())"
             }
         }
-        detailLabel.text = "\(album.assetCount)\(dateString)"
+        detailLabel.text = "\(album.exactCount)\(dateString)"
         
-        if let assets = album.assets {
-            let diameter = thumbnailContainer.frame.height
-            let targetSize = CGSize(width: diameter, height: diameter)
-            
-            for i in 0..<min(assets.count, thumbnailViews.count) {
-                thumbnailViews[i].load(assets[i], targetSize: targetSize)
-            }
+        let diameter = thumbnailContainer.frame.height
+        let targetSize = CGSize(width: diameter, height: diameter)
+        
+        for i in 0..<min(album.assets.count, thumbnailViews.count) {
+            thumbnailViews[i].load(album.assets[i], targetSize: targetSize)
         }
     }
     
@@ -127,7 +125,7 @@ class ShelfViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return AssetManager.sharedInstance.albums.count
+        return DataManager.sharedInstance.getAlbumsPinnedFirst().count
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -136,7 +134,7 @@ class ShelfViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) as! ShelfCell
-        cell.update(AssetManager.sharedInstance.albums[indexPath.row])
+        cell.update(DataManager.sharedInstance.getAlbumsPinnedFirst()[indexPath.row])
         return cell
     }
     
@@ -147,7 +145,7 @@ class ShelfViewController: UITableViewController {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
         let albumViewController = AlbumViewController.controller()
-        albumViewController.album = AssetManager.sharedInstance.albums[indexPath.row]
+        albumViewController.album = DataManager.sharedInstance.getAlbumsPinnedFirst()[indexPath.row]
         navigationController?.pushViewController(albumViewController, animated: true)
     }
 }

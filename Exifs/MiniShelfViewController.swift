@@ -24,12 +24,12 @@ class MiniShelfCell: UITableViewCell {
     }
     
     func update(album: Album) {
-        if let asset = album.assets?.first {
+        if let asset = album.assets.first {
             thumbnailView.load(asset, targetSize: thumbnailView.frame.size)
         }
         
-        let att = NSMutableAttributedString(string: "\(album.title) \(album.assetCount)", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(12), NSForegroundColorAttributeName: Color.black])
-        att.addAttribute(NSForegroundColorAttributeName, value: Color.gray60, range: (att.string as NSString).rangeOfString("\(album.assetCount)"))
+        let att = NSMutableAttributedString(string: "\(album.name) \(album.exactCount)", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(12), NSForegroundColorAttributeName: Color.black])
+        att.addAttribute(NSForegroundColorAttributeName, value: Color.gray60, range: (att.string as NSString).rangeOfString("\(album.exactCount)"))
         titleLabel.attributedText = att
     }
     

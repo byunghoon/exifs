@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Photos
 
 class AlbumViewController: UIViewController {
     
@@ -27,7 +28,7 @@ class AlbumViewController: UIViewController {
     private var gestureController: GestureController!
     private var gridViewProperties: CollectionViewProperties?
     
-    var album: Album!
+    var album: PHAssetCollection!
     
     class func controller() -> AlbumViewController {
         return UIStoryboard.mainStoryboard().instantiateViewControllerWithIdentifier("AlbumViewController") as! AlbumViewController
@@ -49,7 +50,7 @@ class AlbumViewController: UIViewController {
             
         } else if segue.identifier == "EmbedShelf" {
             shelfViewController = segue.destinationViewController as! MiniShelfViewController
-            shelfViewController.albums = AssetManager.sharedInstance.albums.filter({ return $0 != album })
+            shelfViewController.albums = DataManager.sharedInstance.getAlbumsRecentlyUsed().filter({ return $0 != album })
             shelfViewController.tableView.scrollsToTop = false
         }
     }
@@ -57,7 +58,7 @@ class AlbumViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = album.title
+        navigationItem.title = album.name
         
         var items = [UIBarButtonItem]()
         items.append(UIBarButtonItem.spaceItem(-12))

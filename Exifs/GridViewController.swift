@@ -41,19 +41,18 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
     }
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return album.assetCount
+        return album.exactCount
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! GridCell
-        if let asset = album.assets?[indexPath.row] {
-            if let image = imageCache[asset.localIdentifier] {
-                cell.thumbnailView.image = image
-            } else {
-                cell.thumbnailView.load(asset, targetSize: cell.thumbnailView.frame.size, completion: { (image) in
-                    self.imageCache[asset.localIdentifier] = image
-                })
-            }
+        let asset = album.assets[indexPath.row]
+        if let image = imageCache[asset.localIdentifier] {
+            cell.thumbnailView.image = image
+        } else {
+            cell.thumbnailView.load(asset, targetSize: cell.thumbnailView.frame.size, completion: { (image) in
+                self.imageCache[asset.localIdentifier] = image
+            })
         }
         return cell
     }
@@ -100,11 +99,11 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
     }
     
     func estimatedContentHeight(collectionViewWidth: CGFloat) -> CGFloat {
-        guard album.assetCount > 0 else {
+        guard album.exactCount > 0 else {
             return 1
         }
         
-        let rowSize = ceil(CGFloat(album.assetCount) / CGFloat(columnSize()))
+        let rowSize = ceil(CGFloat(album.exactCount) / CGFloat(columnSize()))
         return itemDiameter(collectionViewWidth) * rowSize + itemSpacing() * (rowSize - 1)
     }
 }
