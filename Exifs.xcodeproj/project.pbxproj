@@ -15,6 +15,7 @@
 		442443A01C7ECED90034AAFD /* ThumbnailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4424439F1C7ECED90034AAFD /* ThumbnailView.swift */; };
 		442443A21C7FD8140034AAFD /* AssetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442443A11C7FD8140034AAFD /* AssetManager.swift */; };
 		442443A41C83A6800034AAFD /* GestureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442443A31C83A6800034AAFD /* GestureController.swift */; };
+		4472B0441C91099F004B819B /* CoreDataBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4472B0431C91099F004B819B /* CoreDataBridge.swift */; };
 		449241131C6D6CF9005CCCE8 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449241121C6D6CF9005CCCE8 /* Theme.swift */; };
 		449241151C6D83E8005CCCE8 /* NSDateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449241141C6D83E8005CCCE8 /* NSDateExtensions.swift */; };
 		4492411A1C6D97E3005CCCE8 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449241191C6D97E3005CCCE8 /* NavigationController.swift */; };
@@ -43,6 +44,7 @@
 		4424439F1C7ECED90034AAFD /* ThumbnailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThumbnailView.swift; sourceTree = "<group>"; };
 		442443A11C7FD8140034AAFD /* AssetManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetManager.swift; sourceTree = "<group>"; };
 		442443A31C83A6800034AAFD /* GestureController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GestureController.swift; sourceTree = "<group>"; };
+		4472B0431C91099F004B819B /* CoreDataBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataBridge.swift; sourceTree = "<group>"; };
 		449241121C6D6CF9005CCCE8 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		449241141C6D83E8005CCCE8 /* NSDateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtensions.swift; sourceTree = "<group>"; };
 		449241191C6D97E3005CCCE8 /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 		4472B0421C910982004B819B /* Infrastructure */ = {
 			isa = PBXGroup;
 			children = (
+				4472B0431C91099F004B819B /* CoreDataBridge.swift */,
 				44CD11801C92787600EC446F /* PhotosBridge.swift */,
 				44CD117E1C9277E800EC446F /* Definitions.swift */,
 			);
@@ -281,6 +284,7 @@
 			files = (
 				4492411C1C6DA06E005CCCE8 /* UIColorExtensions.swift in Sources */,
 				4492411A1C6D97E3005CCCE8 /* NavigationController.swift in Sources */,
+				4472B0441C91099F004B819B /* CoreDataBridge.swift in Sources */,
 				442443851C7EB7A60034AAFD /* UIStoryboardExtensions.swift in Sources */,
 				442443981C7EC2700034AAFD /* UIBarButtonItemExtensions.swift in Sources */,
 				4424439C1C7EC4240034AAFD /* MiniShelfViewController.swift in Sources */,
