@@ -20,6 +20,9 @@
 		4492411A1C6D97E3005CCCE8 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449241191C6D97E3005CCCE8 /* NavigationController.swift */; };
 		4492411C1C6DA06E005CCCE8 /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4492411B1C6DA06E005CCCE8 /* UIColorExtensions.swift */; };
 		449C33551CA361D000CC275E /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449C33541CA361D000CC275E /* Logger.swift */; };
+		44CD117D1C9237D100EC446F /* PHObjectExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CD117C1C9237D100EC446F /* PHObjectExtensions.swift */; };
+		44CD117F1C9277E800EC446F /* Definitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CD117E1C9277E800EC446F /* Definitions.swift */; };
+		44CD11811C92787600EC446F /* PhotosBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CD11801C92787600EC446F /* PhotosBridge.swift */; };
 		44D041EC1C67E47800DC1898 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D041EB1C67E47800DC1898 /* AppDelegate.swift */; };
 		44D041F11C67E47800DC1898 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44D041EF1C67E47800DC1898 /* Main.storyboard */; };
 		44D041F31C67E47800DC1898 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44D041F21C67E47800DC1898 /* Assets.xcassets */; };
@@ -45,6 +48,9 @@
 		449241191C6D97E3005CCCE8 /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		4492411B1C6DA06E005CCCE8 /* UIColorExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
 		449C33541CA361D000CC275E /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		44CD117C1C9237D100EC446F /* PHObjectExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PHObjectExtensions.swift; sourceTree = "<group>"; };
+		44CD117E1C9277E800EC446F /* Definitions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Definitions.swift; sourceTree = "<group>"; };
+		44CD11801C92787600EC446F /* PhotosBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosBridge.swift; sourceTree = "<group>"; };
 		44D041E81C67E47800DC1898 /* Exifs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Exifs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		44D041EB1C67E47800DC1898 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		44D041F01C67E47800DC1898 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -69,6 +75,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4472B0421C910982004B819B /* Infrastructure */ = {
+			isa = PBXGroup;
+			children = (
+				44CD11801C92787600EC446F /* PhotosBridge.swift */,
+				44CD117E1C9277E800EC446F /* Definitions.swift */,
+			);
+			name = Infrastructure;
+			sourceTree = "<group>";
+		};
 		449241161C6D93FE005CCCE8 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -76,6 +91,7 @@
 				449241141C6D83E8005CCCE8 /* NSDateExtensions.swift */,
 				4492411B1C6DA06E005CCCE8 /* UIColorExtensions.swift */,
 				442443841C7EB7A60034AAFD /* UIStoryboardExtensions.swift */,
+				44CD117C1C9237D100EC446F /* PHObjectExtensions.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -108,6 +124,7 @@
 				442443A31C83A6800034AAFD /* GestureController.swift */,
 				449C33541CA361D000CC275E /* Logger.swift */,
 				449241161C6D93FE005CCCE8 /* Extensions */,
+				4472B0421C910982004B819B /* Infrastructure */,
 				449241191C6D97E3005CCCE8 /* NavigationController.swift */,
 				44D041FD1C67E5C400DC1898 /* ShelfViewController.swift */,
 				44D041FF1C67E99000DC1898 /* AlbumViewController.swift */,
@@ -268,15 +285,18 @@
 				442443981C7EC2700034AAFD /* UIBarButtonItemExtensions.swift in Sources */,
 				4424439C1C7EC4240034AAFD /* MiniShelfViewController.swift in Sources */,
 				449241151C6D83E8005CCCE8 /* NSDateExtensions.swift in Sources */,
+				44CD117D1C9237D100EC446F /* PHObjectExtensions.swift in Sources */,
 				449C33551CA361D000CC275E /* Logger.swift in Sources */,
 				44D041FE1C67E5C400DC1898 /* ShelfViewController.swift in Sources */,
 				44D041EC1C67E47800DC1898 /* AppDelegate.swift in Sources */,
 				449241131C6D6CF9005CCCE8 /* Theme.swift in Sources */,
 				44D042001C67E99000DC1898 /* AlbumViewController.swift in Sources */,
 				442443A41C83A6800034AAFD /* GestureController.swift in Sources */,
+				44CD11811C92787600EC446F /* PhotosBridge.swift in Sources */,
 				442443A01C7ECED90034AAFD /* ThumbnailView.swift in Sources */,
 				441ED6111C6AD2F60019016C /* Album.swift in Sources */,
 				442443A21C7FD8140034AAFD /* AssetManager.swift in Sources */,
+				44CD117F1C9277E800EC446F /* Definitions.swift in Sources */,
 				4424439E1C7EC4EF0034AAFD /* GridViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
