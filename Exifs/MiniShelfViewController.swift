@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Photos
 
 class MiniShelfCell: UITableViewCell {
     
@@ -46,7 +47,13 @@ class MiniShelfViewController: UITableViewController {
     
     @IBOutlet weak var headerLabel: UILabel!
     
-    var albums: [Album]!
+    var excludedAlbum: PHAssetCollection?
+    
+    private var albums: [PHAssetCollection] {
+        get {
+            return DataManager.sharedInstance.photos.recentlyUsedShelf.collections.filter({ return $0 != excludedAlbum })
+        }
+    }
     
     deinit {
         DataManager.sharedInstance.photos.recentlyUsedShelf.removeObserver(self)

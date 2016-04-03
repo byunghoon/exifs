@@ -50,7 +50,7 @@ class AlbumViewController: UIViewController {
             
         } else if segue.identifier == "EmbedShelf" {
             shelfViewController = segue.destinationViewController as! MiniShelfViewController
-            shelfViewController.albums = DataManager.sharedInstance.getAlbumsRecentlyUsed().filter({ return $0 != album })
+            shelfViewController.excludedAlbum = album
             shelfViewController.tableView.scrollsToTop = false
         }
     }
