@@ -11,6 +11,7 @@
 		4407D3561CB0C58500FCF0C5 /* Shelf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4407D3551CB0C58500FCF0C5 /* Shelf.swift */; };
 		4407D3581CB0C59100FCF0C5 /* AssetGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4407D3571CB0C59100FCF0C5 /* AssetGroup.swift */; };
 		4407D35A1CB0C59700FCF0C5 /* CollectionGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4407D3591CB0C59700FCF0C5 /* CollectionGroup.swift */; };
+		4407D35C1CB13D1500FCF0C5 /* ShelfCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4407D35B1CB13D1500FCF0C5 /* ShelfCell.swift */; };
 		442443851C7EB7A60034AAFD /* UIStoryboardExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442443841C7EB7A60034AAFD /* UIStoryboardExtensions.swift */; };
 		442443981C7EC2700034AAFD /* UIBarButtonItemExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442443971C7EC2700034AAFD /* UIBarButtonItemExtensions.swift */; };
 		4424439C1C7EC4240034AAFD /* MiniShelfViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4424439B1C7EC4240034AAFD /* MiniShelfViewController.swift */; };
@@ -41,6 +42,7 @@
 		4407D3551CB0C58500FCF0C5 /* Shelf.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shelf.swift; sourceTree = "<group>"; };
 		4407D3571CB0C59100FCF0C5 /* AssetGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetGroup.swift; sourceTree = "<group>"; };
 		4407D3591CB0C59700FCF0C5 /* CollectionGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionGroup.swift; sourceTree = "<group>"; };
+		4407D35B1CB13D1500FCF0C5 /* ShelfCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShelfCell.swift; sourceTree = "<group>"; };
 		442443841C7EB7A60034AAFD /* UIStoryboardExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIStoryboardExtensions.swift; sourceTree = "<group>"; };
 		442443931C7EC24B0034AAFD /* Exifs-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Exifs-Bridging-Header.h"; sourceTree = "<group>"; };
 		442443971C7EC2700034AAFD /* UIBarButtonItemExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIBarButtonItemExtensions.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 				4472B0421C910982004B819B /* Infrastructure */,
 				449241191C6D97E3005CCCE8 /* NavigationController.swift */,
 				44D041FD1C67E5C400DC1898 /* ShelfViewController.swift */,
+				4407D35B1CB13D1500FCF0C5 /* ShelfCell.swift */,
 				44D041FF1C67E99000DC1898 /* AlbumViewController.swift */,
 				4424439B1C7EC4240034AAFD /* MiniShelfViewController.swift */,
 				4424439D1C7EC4EF0034AAFD /* GridViewController.swift */,
@@ -305,6 +308,7 @@
 				449241131C6D6CF9005CCCE8 /* Theme.swift in Sources */,
 				44D042001C67E99000DC1898 /* AlbumViewController.swift in Sources */,
 				442443A41C83A6800034AAFD /* GestureController.swift in Sources */,
+				4407D35C1CB13D1500FCF0C5 /* ShelfCell.swift in Sources */,
 				44CD11811C92787600EC446F /* PhotosBridge.swift in Sources */,
 				442443A01C7ECED90034AAFD /* ThumbnailView.swift in Sources */,
 				442443A21C7FD8140034AAFD /* DataManager.swift in Sources */,
