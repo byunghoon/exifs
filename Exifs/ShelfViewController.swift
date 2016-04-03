@@ -13,6 +13,12 @@ class ShelfViewController: UITableViewController {
 
     private let reuseIdentifier = "ShelfCell"
     
+    private var shelf: Shelf {
+        get {
+            return DataManager.sharedInstance.photos.pinnedFirstShelf
+        }
+    }
+    
     override func prefersStatusBarHidden() -> Bool {
         return false
     }
@@ -22,7 +28,7 @@ class ShelfViewController: UITableViewController {
     }
     
     deinit {
-        DataManager.sharedInstance.photos.pinnedFirstShelf.removeObserver(self)
+        shelf.removeObserver(self)
     }
     
     override func viewDidLoad() {
@@ -32,7 +38,7 @@ class ShelfViewController: UITableViewController {
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Edit", comment: ""), style: .Plain, target: self, action: #selector(ShelfViewController.didTapEdit))
         
-        DataManager.sharedInstance.photos.pinnedFirstShelf.addObserver(self)
+        shelf.addObserver(self)
     }
     
     
@@ -43,7 +49,7 @@ class ShelfViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return DataManager.sharedInstance.getAlbumsPinnedFirst().count
+        return shelf.collections.count
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -52,7 +58,7 @@ class ShelfViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) as! ShelfCell
-        cell.update(DataManager.sharedInstance.getAlbumsPinnedFirst()[indexPath.row])
+        cell.update(shelf.collections[indexPath.row])
         return cell
     }
     
@@ -63,14 +69,22 @@ class ShelfViewController: UITableViewController {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
         let albumViewController = AlbumViewController.controller()
-        albumViewController.album = DataManager.sharedInstance.getAlbumsPinnedFirst()[indexPath.row]
+        albumViewController.album = shelf.collections[indexPath.row]
         navigationController?.pushViewController(albumViewController, animated: true)
     }
 }
 
 extension ShelfViewController {
     func didTapAdd() {
-        
+        let controller = UIAlertController(title: "Create a new album", message: nil, preferredStyle: .Alert)
+        controller.addTextFieldWithConfigurationHandler { (textField) in
+            textField.placeholder = "Album Title"
+        }
+        controller.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        controller.addAction(UIAlertAction(title: "Create", style: .Default, handler: { (action) in
+            DataManager.sharedInstance.createAlbum(controller.textFields?.first?.text)
+        }))
+        presentViewController(controller, animated: true, completion: nil)
     }
     
     func didTapEdit() {

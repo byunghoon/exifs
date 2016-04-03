@@ -25,9 +25,19 @@ struct DataManager {
         return photos.recentlyUsedShelf.collections
     }
     
-//    func createAlbum(name: String, withPhotos photosToAdd: [PHAsset]? = nil) -> Album? { return nil }
-//    func deleteAlbum(id: AlbumId) {}
-//    
+    func createAlbum(title: String?, withPhotos photosToAdd: [PHAsset]? = nil) {
+        let albumTitle = (title == nil || title == "") ? "Untitled" : title!
+        PHPhotoLibrary.sharedPhotoLibrary().performChanges({ 
+            PHAssetCollectionChangeRequest.creationRequestForAssetCollectionWithTitle(albumTitle)
+            
+            }) { (success, error) in
+                if let error = error {
+                    log("Create album with name \"\(albumTitle)\" failed: \(error.localizedDescription)")
+                }
+        }
+    }
+    
+//
 //    func addPhotos(photos: [PHAsset], toAlbum album: Album) {} // update RecentlyAdded order
 //    func removePhotos(photos: [PHAsset], fromAlbum album: Album) {}
 //    
