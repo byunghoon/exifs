@@ -48,10 +48,16 @@ class MiniShelfViewController: UITableViewController {
     
     var albums: [Album]!
     
+    deinit {
+        DataManager.sharedInstance.photos.recentlyUsedShelf.removeObserver(self)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         headerLabel.textColor = Color.gray60
+        
+        DataManager.sharedInstance.photos.recentlyUsedShelf.addObserver(self)
     }
     
     
@@ -73,5 +79,32 @@ class MiniShelfViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) as! MiniShelfCell
         cell.update(albums[indexPath.row])
         return cell
+    }
+}
+
+extension MiniShelfViewController: ShelfObserving {
+    func shelfDidChange(changes: Rice) {
+        print("Mini shelf: \(changes)")
+        
+        if !changes.hasIncrementalChanges {
+            return tableView.reloadData()
+        }
+        
+        tableView.beginUpdates()
+        if let indexSet = changes.removedIndexes {
+            self.tableView.deleteRowsAtIndexPaths(indexSet.toIndexPaths(), withRowAnimation: .None)
+        }
+        if let indexSet = changes.insertedIndexes {
+            self.tableView.insertRowsAtIndexPaths(indexSet.toIndexPaths(), withRowAnimation: .None)
+        }
+        if let indexSet = changes.changedIndexes {
+            self.tableView.reloadRowsAtIndexPaths(indexSet.toIndexPaths(), withRowAnimation: .None)
+        }
+        changes.enumerateMovesWithBlock?({ (before, after) in
+            let from = NSIndexPath(forRow: before, inSection: 0)
+            let to = NSIndexPath(forRow: after, inSection: 0)
+            self.tableView.moveRowAtIndexPath(from, toIndexPath: to)
+        })
+        tableView.endUpdates()
     }
 }

@@ -27,6 +27,16 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
     
     var album: Album!
     
+    deinit {
+        DataManager.sharedInstance.photos.map[album.localIdentifier]?.removeObserver(self)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        DataManager.sharedInstance.photos.map[album.localIdentifier]?.addObserver(self)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
@@ -105,6 +115,37 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
         
         let rowSize = ceil(CGFloat(album.exactCount) / CGFloat(columnSize()))
         return itemDiameter(collectionViewWidth) * rowSize + itemSpacing() * (rowSize - 1)
+    }
+}
+
+extension GridViewController: AssetObserving {
+    func assetDidChange(changes: Rice) {
+        print("Grid: \(changes)")
+        
+        guard let collectionView = collectionView else {
+            return
+        }
+        
+        if !changes.hasIncrementalChanges {
+            return collectionView.reloadData()
+        }
+        
+        collectionView.performBatchUpdates({ 
+            if let indexSet = changes.removedIndexes {
+                collectionView.deleteItemsAtIndexPaths(indexSet.toIndexPaths())
+            }
+            if let indexSet = changes.insertedIndexes {
+                collectionView.insertItemsAtIndexPaths(indexSet.toIndexPaths())
+            }
+            if let indexSet = changes.changedIndexes {
+                collectionView.reloadItemsAtIndexPaths(indexSet.toIndexPaths())
+            }
+            changes.enumerateMovesWithBlock?({ (before, after) in
+                let from = NSIndexPath(forRow: before, inSection: 0)
+                let to = NSIndexPath(forRow: after, inSection: 0)
+                collectionView.moveItemAtIndexPath(from, toIndexPath: to)
+            })
+            }, completion: nil)
     }
 }
 

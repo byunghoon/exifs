@@ -109,12 +109,18 @@ class ShelfViewController: UITableViewController {
         return Theme.statusBarStyle
     }
     
+    deinit {
+        DataManager.sharedInstance.photos.pinnedFirstShelf.removeObserver(self)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("New", comment: ""), style: .Plain, target: self, action: #selector(ShelfViewController.didTapAdd))
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Edit", comment: ""), style: .Plain, target: self, action: #selector(ShelfViewController.didTapEdit))
+        
+        DataManager.sharedInstance.photos.pinnedFirstShelf.addObserver(self)
     }
     
     
@@ -150,9 +156,6 @@ class ShelfViewController: UITableViewController {
     }
 }
 
-
-// MARK: -
-
 extension ShelfViewController {
     func didTapAdd() {
         
@@ -160,5 +163,32 @@ extension ShelfViewController {
     
     func didTapEdit() {
         
+    }
+}
+
+extension ShelfViewController: ShelfObserving {
+    func shelfDidChange(changes: Rice) {
+        print("Shelf: \(changes)")
+        
+        if !changes.hasIncrementalChanges {
+            return tableView.reloadData()
+        }
+        
+        tableView.beginUpdates()
+        if let indexSet = changes.removedIndexes {
+            self.tableView.deleteRowsAtIndexPaths(indexSet.toIndexPaths(), withRowAnimation: .None)
+        }
+        if let indexSet = changes.insertedIndexes {
+            self.tableView.insertRowsAtIndexPaths(indexSet.toIndexPaths(), withRowAnimation: .None)
+        }
+        if let indexSet = changes.changedIndexes {
+            self.tableView.reloadRowsAtIndexPaths(indexSet.toIndexPaths(), withRowAnimation: .None)
+        }
+        changes.enumerateMovesWithBlock?({ (before, after) in
+            let from = NSIndexPath(forRow: before, inSection: 0)
+            let to = NSIndexPath(forRow: after, inSection: 0)
+            self.tableView.moveRowAtIndexPath(from, toIndexPath: to)
+        })
+        tableView.endUpdates()
     }
 }
