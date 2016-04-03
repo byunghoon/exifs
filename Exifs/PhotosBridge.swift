@@ -162,25 +162,12 @@ private extension Shelf {
             }
         }
         
-        var indexMap = [PHAssetCollection : Int]() // index of collections in "after"
-        for i in 0..<after.count {
-            indexMap[after[i]] = i
-        }
-        let moveBlock = { (move: ((Int, Int) -> Void)) -> Void in
-            for indexBefore in 0..<before.count {
-                let collection = before[indexBefore]
-                if let indexAfter = indexMap[collection] where indexBefore != indexAfter {
-                    move(indexBefore, indexAfter)
-                }
-            }
-        }
-        
         let rice = Rice(
             hasIncrementalChanges: true,
             removedIndexes: removedIndexes.count > 0 ? removedIndexes : nil,
             insertedIndexes: insertedIndexes.count > 0 ? insertedIndexes : nil,
             changedIndexes: changedIndexes.count > 0 ? changedIndexes : nil,
-            enumerateMovesWithBlock: moveBlock
+            enumerateMovesWithBlock: nil
         )
         notifyObservers(rice)
     }
