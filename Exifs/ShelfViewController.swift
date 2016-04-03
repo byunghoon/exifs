@@ -34,11 +34,25 @@ class ShelfViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("New", comment: ""), style: .Plain, target: self, action: #selector(ShelfViewController.didTapAdd))
-        
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Edit", comment: ""), style: .Plain, target: self, action: #selector(ShelfViewController.didTapEdit))
+        var items = [UIBarButtonItem]()
+        items.append(UIBarButtonItem.spaceItem(-12))
+        let image = IonIcons.imageWithIcon(ion_ios_plus_empty, iconColor: Theme.primaryColor, iconSize: 30, imageSize: CGSizeMake(30, 32))
+        items.append(UIBarButtonItem(image: image.paddedImage(UIEdgeInsets(top: 2, left: 0, bottom: 0, right: 0)), style: .Plain, target: nil, action: nil))
+        navigationItem.rightBarButtonItems = items
         
         shelf.addObserver(self)
+    }
+    
+    func didTapAdd() {
+        let controller = UIAlertController(title: "New Album", message: nil, preferredStyle: .Alert)
+        controller.addTextFieldWithConfigurationHandler { (textField) in
+            textField.placeholder = "Album Title"
+        }
+        controller.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        controller.addAction(UIAlertAction(title: "Create", style: .Default, handler: { (action) in
+            DataManager.sharedInstance.createAlbum(controller.textFields?.first?.text)
+        }))
+        presentViewController(controller, animated: true, completion: nil)
     }
     
     
@@ -72,23 +86,32 @@ class ShelfViewController: UITableViewController {
         albumViewController.album = shelf.collections[indexPath.row]
         navigationController?.pushViewController(albumViewController, animated: true)
     }
-}
-
-extension ShelfViewController {
-    func didTapAdd() {
-        let controller = UIAlertController(title: "Create a new album", message: nil, preferredStyle: .Alert)
-        controller.addTextFieldWithConfigurationHandler { (textField) in
-            textField.placeholder = "Album Title"
-        }
-        controller.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
-        controller.addAction(UIAlertAction(title: "Create", style: .Default, handler: { (action) in
-            DataManager.sharedInstance.createAlbum(controller.textFields?.first?.text)
-        }))
-        presentViewController(controller, animated: true, completion: nil)
-    }
     
-    func didTapEdit() {
+    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        var actions = [UITableViewRowAction]()
         
+        let album = shelf.collections[indexPath.row]
+        if album.assetCollectionSubtype == .AlbumRegular {
+            let deleteAction = UITableViewRowAction(style: .Destructive, title: NSLocalizedString("Delete", comment: ""), handler: { (action, indexPath) in
+                let title = NSLocalizedString("This can't be undone. Your photos will still remain in Camera Roll.", comment: "")
+                let controller = UIAlertController(title: title, message: nil, preferredStyle: .ActionSheet)
+                controller.addAction(UIAlertAction(title: NSLocalizedString("Delete", comment: ""), style: .Destructive, handler: { (action) in
+                    DataManager.sharedInstance.deleteAlbum(album)
+                }))
+                controller.addAction((UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .Cancel, handler: nil)))
+                self.presentViewController(controller, animated: true, completion: nil)
+            })
+            deleteAction.backgroundColor = Color.gray60x
+            actions.append(deleteAction)
+        }
+        
+        let pinAction = UITableViewRowAction(style: .Normal, title: "Pin\nAlbum", handler: { (action, indexPath) in
+            DataManager.sharedInstance.data.pinAlbum(album.localIdentifier)
+        })
+        pinAction.backgroundColor = Color.blue
+        actions.append(pinAction)
+        
+        return actions
     }
 }
 

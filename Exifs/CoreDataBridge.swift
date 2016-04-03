@@ -15,7 +15,7 @@ struct AlbumPref {
 
 struct CoreDataBridge {
     private(set) var pinnedAlbumIds = [AlbumId]()
-    func pinAlbum(id: AlbumId) {}
+    func pinAlbum(id: AlbumId) { print("Pin album not implemented") }
     func unpinAlbum(id: AlbumId) {}
     
     private(set) var recentlyUsedAlbumIds = [AlbumId]()

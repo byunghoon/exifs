@@ -13,7 +13,7 @@ struct DataManager {
     static let sharedInstance = DataManager()
     
     private(set) var photos = PhotosBridge()
-    private var data = CoreDataBridge()
+    private(set) var data = CoreDataBridge()
     
     private var unrelatedAssets = [PHAsset]() // (cameraRoll) minus (all album entries)
     
@@ -37,6 +37,16 @@ struct DataManager {
         }
     }
     
+    func deleteAlbum(album: PHAssetCollection) {
+        PHPhotoLibrary.sharedPhotoLibrary().performChanges({
+            PHAssetCollectionChangeRequest.deleteAssetCollections([album])
+            
+            }) { (success, error) in
+                if let error = error {
+                    log("Delete album \(album) failed: \(error.localizedDescription)")
+                }
+        }
+    }
 //
 //    func addPhotos(photos: [PHAsset], toAlbum album: Album) {} // update RecentlyAdded order
 //    func removePhotos(photos: [PHAsset], fromAlbum album: Album) {}
