@@ -12,6 +12,7 @@
 		4407D3581CB0C59100FCF0C5 /* AssetGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4407D3571CB0C59100FCF0C5 /* AssetGroup.swift */; };
 		4407D35A1CB0C59700FCF0C5 /* CollectionGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4407D3591CB0C59700FCF0C5 /* CollectionGroup.swift */; };
 		4407D35C1CB13D1500FCF0C5 /* ShelfCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4407D35B1CB13D1500FCF0C5 /* ShelfCell.swift */; };
+		4407D35E1CB1866E00FCF0C5 /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4407D35D1CB1866E00FCF0C5 /* UIImageExtensions.swift */; };
 		442443851C7EB7A60034AAFD /* UIStoryboardExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442443841C7EB7A60034AAFD /* UIStoryboardExtensions.swift */; };
 		442443981C7EC2700034AAFD /* UIBarButtonItemExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442443971C7EC2700034AAFD /* UIBarButtonItemExtensions.swift */; };
 		4424439C1C7EC4240034AAFD /* MiniShelfViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4424439B1C7EC4240034AAFD /* MiniShelfViewController.swift */; };
@@ -43,6 +44,7 @@
 		4407D3571CB0C59100FCF0C5 /* AssetGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetGroup.swift; sourceTree = "<group>"; };
 		4407D3591CB0C59700FCF0C5 /* CollectionGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionGroup.swift; sourceTree = "<group>"; };
 		4407D35B1CB13D1500FCF0C5 /* ShelfCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShelfCell.swift; sourceTree = "<group>"; };
+		4407D35D1CB1866E00FCF0C5 /* UIImageExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtensions.swift; sourceTree = "<group>"; };
 		442443841C7EB7A60034AAFD /* UIStoryboardExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIStoryboardExtensions.swift; sourceTree = "<group>"; };
 		442443931C7EC24B0034AAFD /* Exifs-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Exifs-Bridging-Header.h"; sourceTree = "<group>"; };
 		442443971C7EC2700034AAFD /* UIBarButtonItemExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIBarButtonItemExtensions.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 				4492411B1C6DA06E005CCCE8 /* UIColorExtensions.swift */,
 				442443841C7EB7A60034AAFD /* UIStoryboardExtensions.swift */,
 				44CD117C1C9237D100EC446F /* PHObjectExtensions.swift */,
+				4407D35D1CB1866E00FCF0C5 /* UIImageExtensions.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -294,6 +297,7 @@
 				4492411C1C6DA06E005CCCE8 /* UIColorExtensions.swift in Sources */,
 				4492411A1C6D97E3005CCCE8 /* NavigationController.swift in Sources */,
 				4472B0441C91099F004B819B /* CoreDataBridge.swift in Sources */,
+				4407D35E1CB1866E00FCF0C5 /* UIImageExtensions.swift in Sources */,
 				442443851C7EB7A60034AAFD /* UIStoryboardExtensions.swift in Sources */,
 				442443981C7EC2700034AAFD /* UIBarButtonItemExtensions.swift in Sources */,
 				4424439C1C7EC4240034AAFD /* MiniShelfViewController.swift in Sources */,
