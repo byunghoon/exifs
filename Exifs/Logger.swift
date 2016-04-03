@@ -9,5 +9,5 @@
 import Foundation
 
 func log(message: String) {
-    print(message)
+    print("log: " + message)
 }
