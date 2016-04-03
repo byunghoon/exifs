@@ -25,19 +25,25 @@ extension Rice: CustomDebugStringConvertible {
     var debugDescription: String {
         get {
             if !hasIncrementalChanges {
-                return "Changes is too large"
+                return "large changes"
             }
             
-            var str = "Rice\n"
-            str += "removed: \(removedIndexes?.toString())\n"
-            str += "inserted: \(insertedIndexes?.toString())\n"
-            str += "changed: \(changedIndexes?.toString())\n"
+            var str = ""
+            if let indexSet = removedIndexes {
+                str += "removed(\(indexSet.toString())) "
+            }
+            if let indexSet = insertedIndexes {
+                str += "inserted(\(indexSet.toString())) "
+            }
+            if let indexSet = changedIndexes {
+                str += "changed(\(indexSet.toString())) "
+            }
             if let block = enumerateMovesWithBlock {
-                str += "moves: "
+                str += "moved("
                 block({ (before, after) in
-                    str += "(\(before), \(after)) "
+                    str += "{\(before) > \(after)} "
                 })
-                str += "\n"
+                str += ")"
             }
             return str
         }
@@ -54,10 +60,10 @@ extension NSIndexSet {
     }
     
     private func toString() -> String {
-        var str = ""
+        var indexes = [String]()
         enumerateIndexesUsingBlock { (i, _) in
-            str += "\(i) "
+            indexes.append("\(i)")
         }
-        return str
+        return indexes.joinWithSeparator(", ")
     }
 }
