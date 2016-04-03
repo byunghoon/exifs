@@ -44,8 +44,22 @@ class PhotosBridge: NSObject {
 
 extension PhotosBridge: PHPhotoLibraryChangeObserver {
     func photoLibraryDidChange(changeInstance: PHChange) {
-        var changedAssetGroups = Set<AssetGroup>()
+        for collectionGroup in collectionGroups {
+            if let details = changeInstance.changeDetailsForFetchResult(collectionGroup.fetchResult) {
+                for removedObject in details.removedObjects {
+                    if let collection = removedObject as? PHAssetCollection {
+                        self.map.removeValueForKey(collection.localIdentifier)
+                    }
+                }
+                for insertedObject in details.insertedObjects {
+                    if let collection = insertedObject as? PHAssetCollection {
+                        self.map[collection.localIdentifier] = AssetGroup(collection: collection)
+                    }
+                }
+            }
+        }
         
+        var changedAssetGroups = Set<AssetGroup>()
         for assetGroup in map.values {
             if let details = changeInstance.changeDetailsForFetchResult(assetGroup.fetchResult) {
                 assetGroup.fetchResult = details.fetchResultAfterChanges
