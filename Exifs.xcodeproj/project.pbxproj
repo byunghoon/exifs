@@ -27,7 +27,7 @@
 		4492411C1C6DA06E005CCCE8 /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4492411B1C6DA06E005CCCE8 /* UIColorExtensions.swift */; };
 		449C33551CA361D000CC275E /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449C33541CA361D000CC275E /* Logger.swift */; };
 		44CD117D1C9237D100EC446F /* PHObjectExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CD117C1C9237D100EC446F /* PHObjectExtensions.swift */; };
-		44CD11811C92787600EC446F /* PhotosBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CD11801C92787600EC446F /* PhotosBridge.swift */; };
+		44CD11811C92787600EC446F /* PhotoLibraryBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CD11801C92787600EC446F /* PhotoLibraryBridge.swift */; };
 		44D041EC1C67E47800DC1898 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D041EB1C67E47800DC1898 /* AppDelegate.swift */; };
 		44D041F11C67E47800DC1898 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44D041EF1C67E47800DC1898 /* Main.storyboard */; };
 		44D041F31C67E47800DC1898 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44D041F21C67E47800DC1898 /* Assets.xcassets */; };
@@ -60,7 +60,7 @@
 		4492411B1C6DA06E005CCCE8 /* UIColorExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
 		449C33541CA361D000CC275E /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		44CD117C1C9237D100EC446F /* PHObjectExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PHObjectExtensions.swift; sourceTree = "<group>"; };
-		44CD11801C92787600EC446F /* PhotosBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosBridge.swift; sourceTree = "<group>"; };
+		44CD11801C92787600EC446F /* PhotoLibraryBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLibraryBridge.swift; sourceTree = "<group>"; };
 		44D041E81C67E47800DC1898 /* Exifs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Exifs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		44D041EB1C67E47800DC1898 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		44D041F01C67E47800DC1898 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -90,7 +90,7 @@
 			children = (
 				442443A11C7FD8140034AAFD /* DataManager.swift */,
 				4472B0431C91099F004B819B /* CoreDataBridge.swift */,
-				44CD11801C92787600EC446F /* PhotosBridge.swift */,
+				44CD11801C92787600EC446F /* PhotoLibraryBridge.swift */,
 				4407D3511CB0BFD400FCF0C5 /* Rice.swift */,
 				4407D3551CB0C58500FCF0C5 /* Shelf.swift */,
 				4407D3591CB0C59700FCF0C5 /* CollectionGroup.swift */,
@@ -313,7 +313,7 @@
 				44D042001C67E99000DC1898 /* AlbumViewController.swift in Sources */,
 				442443A41C83A6800034AAFD /* GestureController.swift in Sources */,
 				4407D35C1CB13D1500FCF0C5 /* ShelfCell.swift in Sources */,
-				44CD11811C92787600EC446F /* PhotosBridge.swift in Sources */,
+				44CD11811C92787600EC446F /* PhotoLibraryBridge.swift in Sources */,
 				442443A01C7ECED90034AAFD /* ThumbnailView.swift in Sources */,
 				442443A21C7FD8140034AAFD /* DataManager.swift in Sources */,
 				4424439E1C7EC4EF0034AAFD /* GridViewController.swift in Sources */,

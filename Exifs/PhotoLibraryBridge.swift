@@ -9,7 +9,7 @@
 import Foundation
 import Photos
 
-class PhotosBridge: NSObject {
+class PhotoLibraryBridge: NSObject {
     private(set) var pinnedFirstShelf: Shelf
     private(set) var recentlyUsedShelf: Shelf
     
@@ -42,7 +42,7 @@ class PhotosBridge: NSObject {
     }
 }
 
-extension PhotosBridge: PHPhotoLibraryChangeObserver {
+extension PhotoLibraryBridge: PHPhotoLibraryChangeObserver {
     func photoLibraryDidChange(changeInstance: PHChange) {
         for collectionGroup in collectionGroups {
             if let details = changeInstance.changeDetailsForFetchResult(collectionGroup.fetchResult) {

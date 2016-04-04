@@ -12,7 +12,7 @@ import Photos
 struct DataManager {
     static let sharedInstance = DataManager()
     
-    private(set) var photos = PhotosBridge()
+    private(set) var photos = PhotoLibraryBridge()
     private(set) var data = CoreDataBridge()
     
     private var unrelatedAssets = [PHAsset]() // (cameraRoll) minus (all album entries)
