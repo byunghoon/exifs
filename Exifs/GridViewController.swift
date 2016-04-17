@@ -25,16 +25,17 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
     
     private var imageCache = [String: UIImage]()
     
+    var service: Service!
     var album: Album!
     
     deinit {
-        DataManager.sharedInstance.photos.map[album.localIdentifier]?.removeObserver(self)
+        service.photos.removeObserver(self, forId: album.id)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        DataManager.sharedInstance.photos.map[album.localIdentifier]?.addObserver(self)
+        service.photos.addObserver(self, forId: album.id)
     }
     
     override func didReceiveMemoryWarning() {
@@ -51,7 +52,7 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
     }
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return album.exactCount
+        return album.assetCount
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -109,43 +110,47 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
     }
     
     func estimatedContentHeight(collectionViewWidth: CGFloat) -> CGFloat {
-        guard album.exactCount > 0 else {
+        guard album.assetCount > 0 else {
             return 1
         }
         
-        let rowSize = ceil(CGFloat(album.exactCount) / CGFloat(columnSize()))
+        let rowSize = ceil(CGFloat(album.assetCount) / CGFloat(columnSize()))
         return itemDiameter(collectionViewWidth) * rowSize + itemSpacing() * (rowSize - 1)
     }
 }
 
-extension GridViewController: AssetObserving {
-    func assetDidChange(changes: Rice) {
-        print("Grid: \(changes)")
-        
-        guard let collectionView = collectionView else {
-            return
-        }
-        
-        if !changes.hasIncrementalChanges {
-            return collectionView.reloadData()
-        }
-        
-        collectionView.performBatchUpdates({ 
-            if let indexSet = changes.removedIndexes {
-                collectionView.deleteItemsAtIndexPaths(indexSet.toIndexPaths())
+extension GridViewController: CollectionObserving {
+    func collection(id: String, didUpdateAssets rice: Rice) {
+        dispatch_async(dispatch_get_main_queue()) {
+            print("Grid: \(rice)")
+            
+            guard let collectionView = self.collectionView else {
+                return
             }
-            if let indexSet = changes.insertedIndexes {
-                collectionView.insertItemsAtIndexPaths(indexSet.toIndexPaths())
+            
+            if !rice.hasIncrementalChanges {
+                return collectionView.reloadData()
             }
-            if let indexSet = changes.changedIndexes {
-                collectionView.reloadItemsAtIndexPaths(indexSet.toIndexPaths())
-            }
-            changes.enumerateMovesWithBlock?({ (before, after) in
-                let from = NSIndexPath(forRow: before, inSection: 0)
-                let to = NSIndexPath(forRow: after, inSection: 0)
-                collectionView.moveItemAtIndexPath(from, toIndexPath: to)
+            
+            collectionView.performBatchUpdates({ 
+                if let indexSet = rice.removedIndexes {
+                    collectionView.deleteItemsAtIndexPaths(indexSet.toIndexPaths())
+                }
+                if let indexSet = rice.insertedIndexes {
+                    collectionView.insertItemsAtIndexPaths(indexSet.toIndexPaths())
+                }
+                
+                }, completion: { (completed) in
+                    if let indexSet = rice.changedIndexes {
+                        collectionView.reloadItemsAtIndexPaths(indexSet.toIndexPaths())
+                    }
+                    rice.enumerateMovesWithBlock?({ (before, after) in
+                        let from = NSIndexPath(forRow: before, inSection: 0)
+                        let to = NSIndexPath(forRow: after, inSection: 0)
+                        collectionView.moveItemAtIndexPath(from, toIndexPath: to)
+                    })
             })
-            }, completion: nil)
+        }
     }
 }
 

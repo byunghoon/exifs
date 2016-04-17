@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		4407D3521CB0BFD400FCF0C5 /* Rice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4407D3511CB0BFD400FCF0C5 /* Rice.swift */; };
 		4407D3561CB0C58500FCF0C5 /* Shelf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4407D3551CB0C58500FCF0C5 /* Shelf.swift */; };
-		4407D3581CB0C59100FCF0C5 /* AssetGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4407D3571CB0C59100FCF0C5 /* AssetGroup.swift */; };
-		4407D35A1CB0C59700FCF0C5 /* CollectionGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4407D3591CB0C59700FCF0C5 /* CollectionGroup.swift */; };
+		4407D3581CB0C59100FCF0C5 /* FetchedCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4407D3571CB0C59100FCF0C5 /* FetchedCollection.swift */; };
+		4407D35A1CB0C59700FCF0C5 /* FetchedCollectionGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4407D3591CB0C59700FCF0C5 /* FetchedCollectionGroup.swift */; };
 		4407D35C1CB13D1500FCF0C5 /* ShelfCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4407D35B1CB13D1500FCF0C5 /* ShelfCell.swift */; };
 		4407D35E1CB1866E00FCF0C5 /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4407D35D1CB1866E00FCF0C5 /* UIImageExtensions.swift */; };
 		4407D37C1CB1C7FC00FCF0C5 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4407D37A1CB1C7FC00FCF0C5 /* Model.xcdatamodeld */; };
@@ -23,9 +23,10 @@
 		4424439C1C7EC4240034AAFD /* MiniShelfViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4424439B1C7EC4240034AAFD /* MiniShelfViewController.swift */; };
 		4424439E1C7EC4EF0034AAFD /* GridViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4424439D1C7EC4EF0034AAFD /* GridViewController.swift */; };
 		442443A01C7ECED90034AAFD /* ThumbnailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4424439F1C7ECED90034AAFD /* ThumbnailView.swift */; };
-		442443A21C7FD8140034AAFD /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442443A11C7FD8140034AAFD /* DataManager.swift */; };
+		442443A21C7FD8140034AAFD /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442443A11C7FD8140034AAFD /* Service.swift */; };
 		442443A41C83A6800034AAFD /* GestureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442443A31C83A6800034AAFD /* GestureController.swift */; };
 		4472B0441C91099F004B819B /* CoreDataBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4472B0431C91099F004B819B /* CoreDataBridge.swift */; };
+		4477831F1CC33AEB00CB5E2A /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4477831E1CC33AEB00CB5E2A /* Album.swift */; };
 		449241131C6D6CF9005CCCE8 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449241121C6D6CF9005CCCE8 /* Theme.swift */; };
 		449241151C6D83E8005CCCE8 /* NSDateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449241141C6D83E8005CCCE8 /* NSDateExtensions.swift */; };
 		4492411A1C6D97E3005CCCE8 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449241191C6D97E3005CCCE8 /* NavigationController.swift */; };
@@ -46,8 +47,8 @@
 		0A1E81A4A22AB1EB7C3535CE /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		4407D3511CB0BFD400FCF0C5 /* Rice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rice.swift; sourceTree = "<group>"; };
 		4407D3551CB0C58500FCF0C5 /* Shelf.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shelf.swift; sourceTree = "<group>"; };
-		4407D3571CB0C59100FCF0C5 /* AssetGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetGroup.swift; sourceTree = "<group>"; };
-		4407D3591CB0C59700FCF0C5 /* CollectionGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionGroup.swift; sourceTree = "<group>"; };
+		4407D3571CB0C59100FCF0C5 /* FetchedCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchedCollection.swift; sourceTree = "<group>"; };
+		4407D3591CB0C59700FCF0C5 /* FetchedCollectionGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchedCollectionGroup.swift; sourceTree = "<group>"; };
 		4407D35B1CB13D1500FCF0C5 /* ShelfCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShelfCell.swift; sourceTree = "<group>"; };
 		4407D35D1CB1866E00FCF0C5 /* UIImageExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtensions.swift; sourceTree = "<group>"; };
 		4407D37B1CB1C7FC00FCF0C5 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
@@ -61,9 +62,10 @@
 		4424439B1C7EC4240034AAFD /* MiniShelfViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiniShelfViewController.swift; sourceTree = "<group>"; };
 		4424439D1C7EC4EF0034AAFD /* GridViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridViewController.swift; sourceTree = "<group>"; };
 		4424439F1C7ECED90034AAFD /* ThumbnailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThumbnailView.swift; sourceTree = "<group>"; };
-		442443A11C7FD8140034AAFD /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		442443A11C7FD8140034AAFD /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		442443A31C83A6800034AAFD /* GestureController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GestureController.swift; sourceTree = "<group>"; };
 		4472B0431C91099F004B819B /* CoreDataBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataBridge.swift; sourceTree = "<group>"; };
+		4477831E1CC33AEB00CB5E2A /* Album.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
 		449241121C6D6CF9005CCCE8 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		449241141C6D83E8005CCCE8 /* NSDateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtensions.swift; sourceTree = "<group>"; };
 		449241191C6D97E3005CCCE8 /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
@@ -103,22 +105,30 @@
 				4407D38B1CB1C93600FCF0C5 /* PinRecord.swift */,
 				4407D38C1CB1C93600FCF0C5 /* UseRecord+CoreDataProperties.swift */,
 				4407D38D1CB1C93600FCF0C5 /* UseRecord.swift */,
+				4472B0431C91099F004B819B /* CoreDataBridge.swift */,
 			);
 			name = "Core Data";
 			sourceTree = "<group>";
 		};
-		4472B0421C910982004B819B /* Infrastructure */ = {
+		4472B0421C910982004B819B /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				442443A11C7FD8140034AAFD /* DataManager.swift */,
-				4472B0431C91099F004B819B /* CoreDataBridge.swift */,
-				44CD11801C92787600EC446F /* PhotoLibraryBridge.swift */,
 				4407D3511CB0BFD400FCF0C5 /* Rice.swift */,
+				4477831E1CC33AEB00CB5E2A /* Album.swift */,
 				4407D3551CB0C58500FCF0C5 /* Shelf.swift */,
-				4407D3591CB0C59700FCF0C5 /* CollectionGroup.swift */,
-				4407D3571CB0C59100FCF0C5 /* AssetGroup.swift */,
+				442443A11C7FD8140034AAFD /* Service.swift */,
 			);
-			name = Infrastructure;
+			name = Service;
+			sourceTree = "<group>";
+		};
+		447783201CC3E77900CB5E2A /* Photo Library */ = {
+			isa = PBXGroup;
+			children = (
+				4407D3591CB0C59700FCF0C5 /* FetchedCollectionGroup.swift */,
+				4407D3571CB0C59100FCF0C5 /* FetchedCollection.swift */,
+				44CD11801C92787600EC446F /* PhotoLibraryBridge.swift */,
+			);
+			name = "Photo Library";
 			sourceTree = "<group>";
 		};
 		449241161C6D93FE005CCCE8 /* Extensions */ = {
@@ -160,8 +170,9 @@
 				442443A31C83A6800034AAFD /* GestureController.swift */,
 				449C33541CA361D000CC275E /* Logger.swift */,
 				449241161C6D93FE005CCCE8 /* Extensions */,
-				4472B0421C910982004B819B /* Infrastructure */,
+				447783201CC3E77900CB5E2A /* Photo Library */,
 				4407D3791CB1C7C900FCF0C5 /* Core Data */,
+				4472B0421C910982004B819B /* Service */,
 				449241191C6D97E3005CCCE8 /* NavigationController.swift */,
 				44D041FD1C67E5C400DC1898 /* ShelfViewController.swift */,
 				4407D35B1CB13D1500FCF0C5 /* ShelfCell.swift */,
@@ -328,7 +339,7 @@
 				449241151C6D83E8005CCCE8 /* NSDateExtensions.swift in Sources */,
 				44CD117D1C9237D100EC446F /* PHObjectExtensions.swift in Sources */,
 				4407D3521CB0BFD400FCF0C5 /* Rice.swift in Sources */,
-				4407D35A1CB0C59700FCF0C5 /* CollectionGroup.swift in Sources */,
+				4407D35A1CB0C59700FCF0C5 /* FetchedCollectionGroup.swift in Sources */,
 				449C33551CA361D000CC275E /* Logger.swift in Sources */,
 				44D041FE1C67E5C400DC1898 /* ShelfViewController.swift in Sources */,
 				44D041EC1C67E47800DC1898 /* AppDelegate.swift in Sources */,
@@ -341,11 +352,12 @@
 				44CD11811C92787600EC446F /* PhotoLibraryBridge.swift in Sources */,
 				442443A01C7ECED90034AAFD /* ThumbnailView.swift in Sources */,
 				4407D3911CB1C93600FCF0C5 /* UseRecord.swift in Sources */,
-				442443A21C7FD8140034AAFD /* DataManager.swift in Sources */,
+				442443A21C7FD8140034AAFD /* Service.swift in Sources */,
+				4477831F1CC33AEB00CB5E2A /* Album.swift in Sources */,
 				4407D37C1CB1C7FC00FCF0C5 /* Model.xcdatamodeld in Sources */,
 				4407D38F1CB1C93600FCF0C5 /* PinRecord.swift in Sources */,
 				4424439E1C7EC4EF0034AAFD /* GridViewController.swift in Sources */,
-				4407D3581CB0C59100FCF0C5 /* AssetGroup.swift in Sources */,
+				4407D3581CB0C59100FCF0C5 /* FetchedCollection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

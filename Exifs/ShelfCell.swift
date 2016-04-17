@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Photos
 
 class ShelfCell: UITableViewCell {
     
@@ -35,8 +34,8 @@ class ShelfCell: UITableViewCell {
         updateThumbnailViews()
     }
     
-    func update(album: PHAssetCollection) {
-        titleLabel.text = album.name
+    func update(album: Album) {
+        titleLabel.text = album.title
         
         var dateString = ""
         if let earliestDate = album.assets.last?.creationDate, latestDate = album.assets.first?.creationDate {
@@ -46,7 +45,7 @@ class ShelfCell: UITableViewCell {
                 dateString = "  ·  \(earliestDate.formattedString()) to \(latestDate.formattedString())"
             }
         }
-        detailLabel.text = "\(album.exactCount)\(dateString)"
+        detailLabel.text = "\(album.assetCount)\(dateString)"
         
         let diameter = thumbnailContainer.frame.height
         let targetSize = CGSize(width: diameter, height: diameter)

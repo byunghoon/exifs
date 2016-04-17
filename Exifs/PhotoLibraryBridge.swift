@@ -9,166 +9,162 @@
 import Foundation
 import Photos
 
+struct PhotoLibraryUpdates {
+    let changedCollections: Set<String>
+    let reloadedGroups: Set<CollectionType> // to trigger Rice.LargeChangesRice()
+}
+
+protocol PhotoLibraryObserving: class {
+    func photoLibrary(photoLibrary: PhotoLibraryBridge, didUpdate updates: PhotoLibraryUpdates)
+}
+
+protocol CollectionObserving: class {
+    func collection(id: String, didUpdateAssets rice: Rice)
+}
+
 class PhotoLibraryBridge: NSObject {
-    private(set) var pinnedFirstShelf: Shelf
-    private(set) var recentlyUsedShelf: Shelf
+    private var photoLibrary: PHPhotoLibrary
     
-    private var collectionGroups = [CollectionGroup]()
-    private(set) var map = [AlbumId : AssetGroup]()
+    private(set) var collectionGroupMap = [CollectionType : FetchedCollectionGroup]()
+    private(set) var collectionMap = [String : FetchedCollection]()
+    
+    var collectionObservers = [String: [CollectionObserving]]()
+    var libraryObservers = [PhotoLibraryObserving]()
     
     deinit {
-        PHPhotoLibrary.sharedPhotoLibrary().unregisterChangeObserver(self)
+        photoLibrary.unregisterChangeObserver(self)
     }
     
-    override init() {
-        let cameraRoll = CollectionGroup(type: .SmartAlbum, subtype: .SmartAlbumUserLibrary)
-        let favorites = CollectionGroup(type: .SmartAlbum, subtype: .SmartAlbumFavorites)
-        let userAlbums = CollectionGroup(type: .Album, subtype: .AlbumRegular)
+    init(photoLibrary: PHPhotoLibrary, collectionTypes: [CollectionType]) {
+        self.photoLibrary = photoLibrary
         
-        collectionGroups = [cameraRoll, favorites, userAlbums]
-        
-        for collectionGroup in collectionGroups {
-            for collection in collectionGroup.collections {
-                map[collection.localIdentifier] = AssetGroup(collection: collection)
+        for type in collectionTypes {
+            let fetchResult = PHAssetCollection.fetchAssetCollectionsWithType(type.type, subtype: type.subtype, options: nil)
+            collectionGroupMap[type] = FetchedCollectionGroup(fetchResult: fetchResult)
+            
+            let assetCollections = fetchResult.allObjects as? [PHAssetCollection] ?? []
+            for assetCollection in assetCollections {
+                let fetchResult = PHAsset.fetchAssetsInAssetCollection(assetCollection, options: PhotoLibraryBridge.fetchOptions())
+                collectionMap[assetCollection.localIdentifier] = FetchedCollection(assetCollection: assetCollection, fetchResult: fetchResult)
             }
         }
         
-        pinnedFirstShelf = Shelf(collectionGroups: [cameraRoll, favorites, userAlbums], priorityAlbumIds: [])
-        recentlyUsedShelf = Shelf(collectionGroups: [userAlbums], priorityAlbumIds: [])
-        
         super.init()
         
-        PHPhotoLibrary.sharedPhotoLibrary().registerChangeObserver(self)
+        photoLibrary.registerChangeObserver(self)
+    }
+    
+    private static func fetchOptions() -> PHFetchOptions {
+        let options = PHFetchOptions()
+        options.predicate = NSPredicate(format: "mediaType == \(PHAssetMediaType.Image.rawValue)")
+        options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+        return options
+    }
+    
+    func addObserver(observer: PhotoLibraryObserving) {
+        libraryObservers.append(observer)
+    }
+    
+    func removeObserver(observer: PhotoLibraryObserving) {
+        for i in 0..<libraryObservers.count {
+            if libraryObservers[i] === observer {
+                libraryObservers.removeAtIndex(i)
+                return
+            }
+        }
+    }
+    
+    func notifyLibraryObservers(updates: PhotoLibraryUpdates) {
+        for observer in libraryObservers {
+            observer.photoLibrary(self, didUpdate: updates)
+        }
+    }
+    
+    func addObserver(observer: CollectionObserving, forId id: String) {
+        var observers: [CollectionObserving] = collectionObservers[id] ?? []
+        observers.append(observer)
+        collectionObservers[id] = observers
+    }
+    
+    func removeObserver(observer: CollectionObserving, forId id: String) {
+        if var observers = collectionObservers[id] {
+            for i in 0..<observers.count {
+                if observers[i] === observer {
+                    observers.removeAtIndex(i)
+                    collectionObservers[id] = observers
+                    return
+                }
+            }
+        }
+    }
+    
+    func notifyCollectionObservers(id: String, forChanges rice: Rice) {
+        if let observers = collectionObservers[id] {
+            for observer in observers {
+                observer.collection(id, didUpdateAssets: rice)
+            }
+        }
     }
 }
 
 extension PhotoLibraryBridge: PHPhotoLibraryChangeObserver {
     func photoLibraryDidChange(changeInstance: PHChange) {
-        for collectionGroup in collectionGroups {
-            if let details = changeInstance.changeDetailsForFetchResult(collectionGroup.fetchResult) {
-                for removedObject in details.removedObjects {
-                    if let collection = removedObject as? PHAssetCollection {
-                        self.map.removeValueForKey(collection.localIdentifier)
-                    }
-                }
-                for insertedObject in details.insertedObjects {
-                    if let collection = insertedObject as? PHAssetCollection {
-                        self.map[collection.localIdentifier] = AssetGroup(collection: collection)
-                    }
-                }
+        
+        // Update collectionMap based on changes in groups
+        for group in collectionGroupMap.values {
+            let details = changeInstance.changeDetailsForFetchResult(group.underlyingFetchResult)
+            guard let removedObjects = details?.removedObjects as? [PHAssetCollection],
+                insertedObjects = details?.insertedObjects as? [PHAssetCollection] else {
+                continue
+            }
+            
+            for assetCollection in removedObjects {
+                let id = assetCollection.localIdentifier
+                collectionMap.removeValueForKey(id)
+            }
+            for assetCollection in insertedObjects {
+                let fetchResult = PHAsset.fetchAssetsInAssetCollection(assetCollection, options: PhotoLibraryBridge.fetchOptions())
+                collectionMap[assetCollection.localIdentifier] = FetchedCollection(assetCollection: assetCollection, fetchResult: fetchResult)
             }
         }
         
-        var changedAssetGroups = Set<AssetGroup>()
-        for assetGroup in map.values {
-            if let details = changeInstance.changeDetailsForFetchResult(assetGroup.fetchResult) {
-                assetGroup.fetchResult = details.fetchResultAfterChanges
-                changedAssetGroups.insert(assetGroup)
-                
-                let rice = Rice(
-                    hasIncrementalChanges: details.hasIncrementalChanges,
-                    removedIndexes: details.removedIndexes,
-                    insertedIndexes: details.insertedIndexes,
-                    changedIndexes: details.changedIndexes,
-                    enumerateMovesWithBlock: details.enumerateMovesWithBlock
-                )
-                assetGroup.notifyObservers(rice)
+        // Identify collection changes
+        var changedCollections = Set<String>()
+        for mapEntry in collectionMap {
+            let id = mapEntry.0
+            let collection = mapEntry.1
+            guard let details = changeInstance.changeDetailsForFetchResult(collection.underlyingFetchResult) else {
+                continue
+            }
+            
+            collectionMap[id] = FetchedCollection(assetCollection: collection.underlyingAssetCollection, fetchResult: details.fetchResultAfterChanges)
+            changedCollections.insert(id)
+            notifyCollectionObservers(id, forChanges: Rice.RiceFromFetchResultChangeDetails(details))
+        }
+        
+        // Identify group changes
+        var reloadedGroups = Set<CollectionType>()
+        for mapEntry in collectionGroupMap {
+            let type = mapEntry.0
+            let group = mapEntry.1
+            guard let details = changeInstance.changeDetailsForFetchResult(group.underlyingFetchResult) else {
+                continue
+            }
+            
+            collectionGroupMap[type] = FetchedCollectionGroup(fetchResult: details.fetchResultAfterChanges)
+            
+            guard details.hasIncrementalChanges,
+                let changedObjects = details.changedObjects as? [PHAssetCollection] else {
+                reloadedGroups.insert(type)
+                continue
+            }
+            
+            for assetCollection in changedObjects {
+                changedCollections.insert(assetCollection.localIdentifier)
             }
         }
         
-        var changedCollectionGroups = [CollectionGroup : Bool]()
-        for collectionGroup in collectionGroups {
-            if let details = changeInstance.changeDetailsForFetchResult(collectionGroup.fetchResult) {
-                collectionGroup.fetchResult = details.fetchResultAfterChanges
-                changedCollectionGroups[collectionGroup] = details.hasIncrementalChanges
-                
-            } else {
-                for collection in collectionGroup.collections {
-                    if let assetGroup = map[collection.localIdentifier] where changedAssetGroups.contains(assetGroup) {
-                        changedCollectionGroups[collectionGroup] = true
-                        break
-                    }
-                }
-            }
-        }
-        
-        for shelf in [pinnedFirstShelf, recentlyUsedShelf] {
-            shelf.notifyObserversIfNeeded(map, changedAssetGroups, changedCollectionGroups)
-        }
-    }
-}
-
-private extension Shelf {
-    func notifyObserversIfNeeded(map: [AlbumId : AssetGroup], _ changedAssetGroups: Set<AssetGroup>, _ changedCollectionGroups: [CollectionGroup : Bool]) {
-        var hasChanges = false
-        var hasIncrementalChanges = true
-        
-        for collectionGroup in collectionGroups {
-            if let boolValue = changedCollectionGroups[collectionGroup] {
-                hasChanges = true
-                hasIncrementalChanges = boolValue
-                
-                if !hasIncrementalChanges {
-                    break
-                }
-            }
-        }
-        
-        if !hasChanges {
-            return
-        }
-        
-        if !hasIncrementalChanges {
-            return notifyObservers(Rice.LargeChangesRice())
-        }
-        
-        var before = collections
-        populate()
-        let after = collections
-        
-        let removedIndexes = NSMutableIndexSet()
-        var set = Set(after)
-        for i in 0..<before.count {
-            if !set.contains(before[i]) {
-                removedIndexes.addIndex(i)
-            }
-        }
-        for index in removedIndexes {
-            before.removeAtIndex(index)
-        }
-        
-        let insertedIndexes = NSMutableIndexSet()
-        set = Set(before)
-        for i in 0..<after.count {
-            if !set.contains(after[i]) {
-                insertedIndexes.addIndex(i)
-            }
-        }
-        for index in insertedIndexes {
-            before.insert(after[index], atIndex: index)
-        }
-        
-        if before.count != after.count {
-            log("Count mismatch after computing removedIndexes and insertedIndexes")
-            return notifyObservers(Rice.LargeChangesRice())
-        }
-        
-        let changedIndexes = NSMutableIndexSet()
-        for i in 0..<after.count {
-            if let afterAssetGroup = map[after[i].localIdentifier] where changedAssetGroups.contains(afterAssetGroup) {
-                changedIndexes.addIndex(i)
-            } else if before[i].localizedTitle != after[i].localizedTitle {
-                changedIndexes.addIndex(i)
-            }
-        }
-        
-        let rice = Rice(
-            hasIncrementalChanges: true,
-            removedIndexes: removedIndexes.count > 0 ? removedIndexes : nil,
-            insertedIndexes: insertedIndexes.count > 0 ? insertedIndexes : nil,
-            changedIndexes: changedIndexes.count > 0 ? changedIndexes : nil,
-            enumerateMovesWithBlock: nil
-        )
-        notifyObservers(rice)
+        let updates = PhotoLibraryUpdates(changedCollections: changedCollections, reloadedGroups: reloadedGroups)
+        notifyLibraryObservers(updates)
     }
 }

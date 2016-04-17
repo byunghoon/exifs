@@ -29,8 +29,8 @@ class MiniShelfCell: UITableViewCell {
             thumbnailView.load(asset, targetSize: thumbnailView.frame.size)
         }
         
-        let att = NSMutableAttributedString(string: "\(album.name) \(album.exactCount)", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(12), NSForegroundColorAttributeName: Color.black])
-        att.addAttribute(NSForegroundColorAttributeName, value: Color.gray60, range: (att.string as NSString).rangeOfString("\(album.exactCount)"))
+        let att = NSMutableAttributedString(string: "\(album.title) \(album.assetCount)", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(12), NSForegroundColorAttributeName: Color.black])
+        att.addAttribute(NSForegroundColorAttributeName, value: Color.gray60, range: (att.string as NSString).rangeOfString("\(album.assetCount)"))
         titleLabel.attributedText = att
     }
     
@@ -47,16 +47,12 @@ class MiniShelfViewController: UITableViewController {
     
     @IBOutlet weak var headerLabel: UILabel!
     
-    var excludedAlbum: PHAssetCollection?
-    
-    private var albums: [PHAssetCollection] {
-        get {
-            return DataManager.sharedInstance.photos.recentlyUsedShelf.collections.filter({ return $0 != excludedAlbum })
-        }
-    }
+    var service: Service!
+    var excludedAlbum: Album?
+    var shelf: Shelf!
     
     deinit {
-        DataManager.sharedInstance.photos.recentlyUsedShelf.removeObserver(self)
+        shelf.removeObserver(self)
     }
     
     override func viewDidLoad() {
@@ -64,7 +60,12 @@ class MiniShelfViewController: UITableViewController {
         
         headerLabel.textColor = Color.gray60
         
-        DataManager.sharedInstance.photos.recentlyUsedShelf.addObserver(self)
+        var excludedIds = [String]()
+        if let id = excludedAlbum?.id {
+            excludedIds.append(id)
+        }
+        shelf = Shelf(photos: service.photos, data: service.data, collectionTypes: [CollectionType(type: .Album, subtype: .AlbumRegular)], priorityType: .RecentlyUsed, excludedIds: excludedIds)
+        shelf.addObserver(self)
     }
     
     
@@ -75,7 +76,7 @@ class MiniShelfViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return albums.count
+        return shelf.albums.count
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -84,34 +85,36 @@ class MiniShelfViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) as! MiniShelfCell
-        cell.update(albums[indexPath.row])
+        cell.update(shelf.albums[indexPath.row])
         return cell
     }
 }
 
 extension MiniShelfViewController: ShelfObserving {
-    func shelfDidChange(changes: Rice) {
-        print("Mini shelf: \(changes)")
-        
-        if !changes.hasIncrementalChanges {
-            return tableView.reloadData()
+    func shelfDidChange(rice: Rice) {
+        dispatch_async(dispatch_get_main_queue()) {
+            print("Mini shelf: \(rice)")
+            
+            if !rice.hasIncrementalChanges {
+                return self.tableView.reloadData()
+            }
+            
+            self.tableView.beginUpdates()
+            if let indexSet = rice.removedIndexes {
+                self.tableView.deleteRowsAtIndexPaths(indexSet.toIndexPaths(), withRowAnimation: .None)
+            }
+            if let indexSet = rice.insertedIndexes {
+                self.tableView.insertRowsAtIndexPaths(indexSet.toIndexPaths(), withRowAnimation: .None)
+            }
+            if let indexSet = rice.changedIndexes {
+                self.tableView.reloadRowsAtIndexPaths(indexSet.toIndexPaths(), withRowAnimation: .None)
+            }
+            rice.enumerateMovesWithBlock?({ (before, after) in
+                let from = NSIndexPath(forRow: before, inSection: 0)
+                let to = NSIndexPath(forRow: after, inSection: 0)
+                self.tableView.moveRowAtIndexPath(from, toIndexPath: to)
+            })
+            self.tableView.endUpdates()
         }
-        
-        tableView.beginUpdates()
-        if let indexSet = changes.removedIndexes {
-            self.tableView.deleteRowsAtIndexPaths(indexSet.toIndexPaths(), withRowAnimation: .None)
-        }
-        if let indexSet = changes.insertedIndexes {
-            self.tableView.insertRowsAtIndexPaths(indexSet.toIndexPaths(), withRowAnimation: .None)
-        }
-        if let indexSet = changes.changedIndexes {
-            self.tableView.reloadRowsAtIndexPaths(indexSet.toIndexPaths(), withRowAnimation: .None)
-        }
-        changes.enumerateMovesWithBlock?({ (before, after) in
-            let from = NSIndexPath(forRow: before, inSection: 0)
-            let to = NSIndexPath(forRow: after, inSection: 0)
-            self.tableView.moveRowAtIndexPath(from, toIndexPath: to)
-        })
-        tableView.endUpdates()
     }
 }

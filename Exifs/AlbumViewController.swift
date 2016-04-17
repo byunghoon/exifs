@@ -28,7 +28,8 @@ class AlbumViewController: UIViewController {
     private var gestureController: GestureController!
     private var gridViewProperties: CollectionViewProperties?
     
-    var album: PHAssetCollection!
+    var service: Service!
+    var album: Album!
     
     class func controller() -> AlbumViewController {
         return UIStoryboard.mainStoryboard().instantiateViewControllerWithIdentifier("AlbumViewController") as! AlbumViewController
@@ -45,20 +46,26 @@ class AlbumViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "EmbedGrid" {
             gridViewController = segue.destinationViewController as! GridViewController
+            gridViewController.service = service
             gridViewController.album = album
             gridViewController.collectionView?.scrollsToTop = true
             
         } else if segue.identifier == "EmbedShelf" {
             shelfViewController = segue.destinationViewController as! MiniShelfViewController
+            shelfViewController.service = service
             shelfViewController.excludedAlbum = album
             shelfViewController.tableView.scrollsToTop = false
         }
     }
     
+    deinit {
+        service.mainShelf.removeObserver(self)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = album.name
+        navigationItem.title = album.title
         
         var items = [UIBarButtonItem]()
         items.append(UIBarButtonItem.spaceItem(-12))
@@ -73,8 +80,10 @@ class AlbumViewController: UIViewController {
         shadowLayer.startPoint = CGPoint(x: 0, y: 0.5)
         shadowLayer.endPoint = CGPoint(x: 1, y: 0.5)
         separator.layer.addSublayer(shadowLayer)
-
+        
         setupGesture()
+        
+        service.mainShelf.addObserver(self)
     }
     
     override func viewDidLayoutSubviews() {
@@ -91,6 +100,25 @@ class AlbumViewController: UIViewController {
         }
         
         shelfViewController.tableView.contentInset.bottom = toolbar.frame.height
+    }
+}
+
+extension AlbumViewController: ShelfObserving {
+    func shelfDidChange(rice: Rice) {
+        if let removedIds = rice.removedObjects as? [String] where removedIds.contains(album.id) {
+            dispatch_async(dispatch_get_main_queue()) {
+                let alertController = UIAlertController(title: "This album no longer exists.", message: nil, preferredStyle: .Alert)
+                alertController.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (action) in
+                    self.navigationController?.popViewControllerAnimated(true)
+                }))
+                self.presentViewController(alertController, animated: true, completion: nil)
+            }
+            
+        } else if let changedIds = rice.changedObjects as? [String] where changedIds.contains(album.id) {
+            dispatch_async(dispatch_get_main_queue()) {
+                self.navigationItem.title = self.album.title
+            }
+        }
     }
 }
 

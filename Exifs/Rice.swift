@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Photos
 
 struct Rice {
     let hasIncrementalChanges: Bool
@@ -16,8 +17,25 @@ struct Rice {
     let changedIndexes: NSIndexSet?
     let enumerateMovesWithBlock: (((Int, Int) -> Void) -> Void)?
     
+    let removedObjects: [AnyObject]?
+    let insertedObjects: [AnyObject]?
+    let changedObjects: [AnyObject]?
+    
     static func LargeChangesRice() -> Rice {
-        return Rice(hasIncrementalChanges: false, removedIndexes: nil, insertedIndexes: nil, changedIndexes: nil, enumerateMovesWithBlock: nil)
+        return Rice(hasIncrementalChanges: false, removedIndexes: nil, insertedIndexes: nil, changedIndexes: nil, enumerateMovesWithBlock: nil, removedObjects: nil, insertedObjects: nil, changedObjects: nil)
+    }
+    
+    static func RiceFromFetchResultChangeDetails(details: PHFetchResultChangeDetails) -> Rice {
+        return Rice(
+            hasIncrementalChanges: details.hasIncrementalChanges,
+            removedIndexes: details.removedIndexes,
+            insertedIndexes: details.insertedIndexes,
+            changedIndexes: details.changedIndexes,
+            enumerateMovesWithBlock: details.enumerateMovesWithBlock,
+            removedObjects: details.removedObjects,
+            insertedObjects: details.insertedObjects,
+            changedObjects: details.changedObjects
+        )
     }
 }
 

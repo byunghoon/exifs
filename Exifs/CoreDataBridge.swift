@@ -6,28 +6,68 @@
 //  Copyright © 2016 Byunghoon. All rights reserved.
 //
 
-import Foundation
+import UIKit
+import CoreData
 
 struct AlbumPref {
     let scrollOffset: CGPoint // or index?
-    let lastSelection: [MediaId]
+    let lastSelection: [String]
+}
+
+enum PriorityType {
+    case Pinned, RecentlyUsed
+}
+
+protocol CoreDataObserving: class {
+    func coreData(data: CoreDataBridge, didUpdatePriority priorityType: PriorityType)
 }
 
 struct CoreDataBridge {
-    private(set) var pinnedAlbumIds = [AlbumId]()
-    func pinAlbum(id: AlbumId) { print("Pin album not implemented") }
-    func unpinAlbum(id: AlbumId) {}
+    private var managedObjectContext: NSManagedObjectContext
     
-    private(set) var recentlyUsedAlbumIds = [AlbumId]()
-    func useAlbum(id: AlbumId) {}
+    init(modelName: String, storeName: String) {
+        guard let modelURL = NSBundle.mainBundle().URLForResource(modelName, withExtension: "momd") else {
+            fatalError("Error loading model from bundle")
+        }
+        
+        guard let mom = NSManagedObjectModel(contentsOfURL: modelURL) else {
+            fatalError("Error initializing mom from: \(modelURL)")
+        }
+        
+        let psc = NSPersistentStoreCoordinator(managedObjectModel: mom)
+        managedObjectContext = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
+        managedObjectContext.persistentStoreCoordinator = psc
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
+            let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
+            let docURL = urls[urls.endIndex - 1]
+            let storeURL = docURL.URLByAppendingPathComponent("\(storeName).sqlite")
+            do {
+                try psc.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: storeURL, options: nil)
+            } catch {
+                fatalError("Error migrating store: \(error)")
+            }
+        }
+    }
     
-    private(set) var albumPrefs = [AlbumId : AlbumPref]()
-    func saveAlbumPrefs(prefs: AlbumPref, forAlbumId id: AlbumId) {}
+    func priorityCollectionIds(type: PriorityType) -> [String] {
+        return []
+    }
     
-    private(set) var mediaRelations = [MediaId : [AlbumId]]()
-    func relateMedia(mediaId: MediaId, toAlbum albumId: AlbumId) {}
-    func unrelateMedia(mediaId: MediaId, fromAlbum albumId: AlbumId) {}
-    func deleteMedia(mediaId: MediaId) {}
+    private(set) var pinnedAlbumIds = [String]()
+    func pinAlbum(id: String) { print("Pin album not implemented") }
+    func unpinAlbum(id: String) {}
     
-    func unassociateAlbum(id: AlbumId) {}
+    private(set) var recentlyUsedAlbumIds = [String]()
+    func useAlbum(id: String) {}
+    
+    private(set) var albumPrefs = [String : AlbumPref]()
+    func saveAlbumPrefs(prefs: AlbumPref, forAlbumId id: String) {}
+    
+    private(set) var mediaRelations = [String : [String]]()
+    func relateMedia(mediaId: String, toAlbum albumId: String) {}
+    func unrelateMedia(mediaId: String, fromAlbum albumId: String) {}
+    func deleteMedia(mediaId: String) {}
+    
+    func unassociateAlbum(id: String) {}
 }
