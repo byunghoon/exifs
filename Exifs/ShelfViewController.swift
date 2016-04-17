@@ -22,10 +22,6 @@ class ShelfViewController: UITableViewController {
         return Theme.statusBarStyle
     }
     
-    deinit {
-        service.mainShelf.removeObserver(self)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -34,8 +30,18 @@ class ShelfViewController: UITableViewController {
         let image = IonIcons.imageWithIcon(ion_ios_plus_empty, iconColor: Theme.primaryColor, iconSize: 30, imageSize: CGSizeMake(30, 32))
         items.append(UIBarButtonItem(image: image.paddedImage(UIEdgeInsets(top: 2, left: 0, bottom: 0, right: 0)), style: .Plain, target: self, action: #selector(didTapAdd)))
         navigationItem.rightBarButtonItems = items
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         
         service.mainShelf.addObserver(self)
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        service.mainShelf.removeObserver(self)
     }
     
     func didTapAdd() {

@@ -51,10 +51,6 @@ class MiniShelfViewController: UITableViewController {
     var excludedAlbum: Album?
     var shelf: Shelf!
     
-    deinit {
-        shelf.removeObserver(self)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -65,7 +61,18 @@ class MiniShelfViewController: UITableViewController {
             excludedIds.append(id)
         }
         shelf = Shelf(photos: service.photos, data: service.data, collectionTypes: [CollectionType(type: .Album, subtype: .AlbumRegular)], priorityType: .RecentlyUsed, excludedIds: excludedIds)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
         shelf.addObserver(self)
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        shelf.removeObserver(self)
     }
     
     

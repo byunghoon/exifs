@@ -28,14 +28,16 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
     var service: Service!
     var album: Album!
     
-    deinit {
-        service.photos.removeObserver(self, forId: album.id)
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         
         service.photos.addObserver(self, forId: album.id)
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        service.photos.removeObserver(self, forId: album.id)
     }
     
     override func didReceiveMemoryWarning() {

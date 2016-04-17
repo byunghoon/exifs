@@ -58,10 +58,6 @@ class AlbumViewController: UIViewController {
         }
     }
     
-    deinit {
-        service.mainShelf.removeObserver(self)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -82,8 +78,18 @@ class AlbumViewController: UIViewController {
         separator.layer.addSublayer(shadowLayer)
         
         setupGesture()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         
         service.mainShelf.addObserver(self)
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        service.mainShelf.removeObserver(self)
     }
     
     override func viewDidLayoutSubviews() {
