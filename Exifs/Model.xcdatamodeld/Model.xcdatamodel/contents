@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10171" systemVersion="15A284" minimumToolsVersion="Xcode 7.0">
-    <entity name="PinRecord" representedClassName=".PinRecord" syncable="YES">
-        <attribute name="localIdentifier" attributeType="String" indexed="YES" syncable="YES"/>
-        <attribute name="pinedDate" attributeType="Date" syncable="YES"/>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10171" systemVersion="15E65" minimumToolsVersion="Xcode 7.0">
+    <entity name="PinRecord" representedClassName=".AlbumRecord" syncable="YES">
+        <attribute name="date" attributeType="Date" syncable="YES"/>
+        <attribute name="id" attributeType="String" indexed="YES" syncable="YES"/>
     </entity>
-    <entity name="UseRecord" representedClassName=".UseRecord" syncable="YES">
-        <attribute name="localIdentifier" attributeType="String" indexed="YES" syncable="YES"/>
-        <attribute name="usedDate" attributeType="Date" syncable="YES"/>
+    <entity name="UseRecord" representedClassName=".AlbumRecord" syncable="YES">
+        <attribute name="date" attributeType="Date" syncable="YES"/>
+        <attribute name="id" attributeType="String" indexed="YES" syncable="YES"/>
     </entity>
     <elements>
-        <element name="PinRecord" positionX="-9" positionY="36" width="128" height="75"/>
-        <element name="UseRecord" positionX="-9" positionY="36" width="128" height="75"/>
+        <element name="PinRecord" positionX="-9" positionY="36" width="128" height="73"/>
+        <element name="UseRecord" positionX="-9" positionY="36" width="128" height="73"/>
     </elements>
 </model>

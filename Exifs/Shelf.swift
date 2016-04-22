@@ -25,6 +25,7 @@ class Shelf {
     
     deinit {
         photos.removeObserver(self)
+        data.removeObserver(self)
     }
     
     init(photos: PhotoLibraryBridge, data: CoreDataBridge, collectionTypes: [CollectionType], priorityType: PriorityType, excludedIds: [String]? = nil) {
@@ -35,7 +36,11 @@ class Shelf {
         self.excludedIds = excludedIds ?? []
         populate()
         
+        // TODO: remove service.mainShelf & make ShelfVC own a shelf.
+        // Also move addObserver/removeObserver calls to VCs to allow selective observing,
+        // e.g. MiniShelfVC should not update based on UseRecord updates.
         photos.addObserver(self)
+        data.addObserver(self)
     }
     
     func addObserver(observer: ShelfObserving) {
