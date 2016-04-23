@@ -43,15 +43,24 @@ class ShelfCell: UITableViewCell {
         }
         titleLabel.attributedText = titleAtt
         
+        var countString = ""
+        if album.assetCount == 1 {
+            countString = NSLocalizedString("1 photo", comment: "")
+        } else {
+            countString = String(format: NSLocalizedString("%ld photos", comment: ""), album.assetCount)
+        }
+        
         var dateString = ""
         if let earliestDate = album.assets.last?.creationDate, latestDate = album.assets.first?.creationDate {
+            dateString = ", "
             if earliestDate.isEqualToDate(latestDate) {
-                dateString = "  ·  \(earliestDate.formattedString())"
+                dateString += earliestDate.formattedString()
             } else {
-                dateString = "  ·  \(earliestDate.formattedString()) to \(latestDate.formattedString())"
+                dateString += String(format: NSLocalizedString("%@ to %@", comment: ""), earliestDate.formattedString(), latestDate.formattedString())
             }
         }
-        detailLabel.text = "\(album.assetCount)\(dateString)"
+        
+        detailLabel.text = "\(countString)\(dateString)"
         
         let diameter = thumbnailContainer.frame.height
         let targetSize = CGSize(width: diameter, height: diameter)
