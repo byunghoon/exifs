@@ -62,10 +62,18 @@ class ShelfCell: UITableViewCell {
         
         detailLabel.text = "\(countString)\(dateString)"
         
+        if let firstThumbnailView = thumbnailViews.first {
+            if album.assetCount == 0 {
+                firstThumbnailView.backgroundColor = Color.gray85
+            } else {
+                firstThumbnailView.backgroundColor = nil
+            }
+        }
+        
         let diameter = thumbnailContainer.frame.height
         let targetSize = CGSize(width: diameter, height: diameter)
         
-        for i in 0..<min(album.assets.count, thumbnailViews.count) {
+        for i in 0..<min(album.assetCount, thumbnailViews.count) {
             thumbnailViews[i].load(album.assets[i], targetSize: targetSize)
         }
     }
