@@ -73,7 +73,9 @@ class ShelfViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) as! ShelfCell
-        cell.update(service.mainShelf.albums[indexPath.row])
+        let album = service.mainShelf.albums[indexPath.row]
+        let pinned = service.data.priorityCollectionIds(.Pinned).contains(album.id)
+        cell.update(album, pinned: pinned)
         return cell
     }
     

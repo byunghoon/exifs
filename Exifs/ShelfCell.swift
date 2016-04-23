@@ -34,8 +34,14 @@ class ShelfCell: UITableViewCell {
         updateThumbnailViews()
     }
     
-    func update(album: Album) {
-        titleLabel.text = album.title
+    func update(album: Album, pinned: Bool) {
+        var titleAtt = NSMutableAttributedString(string: album.title, attributes: [NSFontAttributeName: UIFont.systemFontOfSize(14), NSForegroundColorAttributeName: Color.black])
+        if pinned {
+            let pinnedAtt = NSMutableAttributedString(string: "\(ion_ios_star) ", attributes: [NSFontAttributeName: IonIcons.fontWithSize(14), NSForegroundColorAttributeName: Color.orange])
+            pinnedAtt.appendAttributedString(titleAtt)
+            titleAtt = pinnedAtt
+        }
+        titleLabel.attributedText = titleAtt
         
         var dateString = ""
         if let earliestDate = album.assets.last?.creationDate, latestDate = album.assets.first?.creationDate {
