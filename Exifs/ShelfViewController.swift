@@ -97,15 +97,9 @@ class ShelfViewController: UITableViewController {
         let album = service.mainShelf.albums[indexPath.row]
         if album.type.subtype == .AlbumRegular {
             let deleteAction = UITableViewRowAction(style: .Destructive, title: NSLocalizedString("Delete", comment: ""), handler: { (action, indexPath) in
-                let title = NSLocalizedString("This can't be undone. Your photos will still remain in Camera Roll.", comment: "")
-                let controller = UIAlertController(title: title, message: nil, preferredStyle: .ActionSheet)
-                controller.addAction(UIAlertAction(title: NSLocalizedString("Delete", comment: ""), style: .Destructive, handler: { (action) in
-                    if let album = album.underlyingAssetCollection {
-                        self.service.deleteAlbum(album)
-                    }
-                }))
-                controller.addAction((UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .Cancel, handler: nil)))
-                self.presentViewController(controller, animated: true, completion: nil)
+                if let album = album.underlyingAssetCollection {
+                    self.service.deleteAlbum(album)
+                }
             })
             deleteAction.backgroundColor = Color.gray60x
             actions.append(deleteAction)
